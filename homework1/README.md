@@ -126,5 +126,5 @@ ggplot(data = eu,
   custom
 ```
 
-<img src="figure/hw1-multiline.png" title="plot of chunk hw1-multiline" alt="plot of chunk hw1-multiline" style="display: block; margin: auto; max-width: 100%; max-height: 100%" />
+<img src="figure/hw1-multiline.png" title="plot of chunk hw1-multiline" alt="plot of chunk hw1-multiline" style="display: block; margin: auto;" />
 

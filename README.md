@@ -1,10 +1,9 @@
 MSAN 622 Data Visualization
 ==============================
 
-| **Name**  | [YOUR NAME] |
+| **Name**  | Spencer Boucher |
 |----------:|:------------|
-| **Email** | [USERNAME]@dons.usfca.edu |
+| **Email** | spencer.g.boucher@gmail.com |
 
 ## About Me ##
-
-[BIO: Fill in a brief bio about yourself here. Keep it between 1 and 3 sentences.]
+My name is Spencer!
