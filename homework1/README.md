@@ -119,11 +119,13 @@ ggplot(data = eu,
            colour = index)) +
   geom_line() +
   scale_x_continuous(breaks=c(1990:1999)) +
+  scale_y_continuous(breaks=seq(1000,10000, 1000)) +
   ggtitle('Price over time for each index') +
   xlab('Year') +
   ylab('Price') +
   theme(legend.position = c(0.1, 0.78)) +
-  custom
+  custom +
+  guides(colour = guide_legend(override.aes = list(size=3)))
 ```
 
 <img src="figure/hw1-multiline.png" title="plot of chunk hw1-multiline" alt="plot of chunk hw1-multiline" style="display: block; margin: auto;" />
