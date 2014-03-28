@@ -12,9 +12,10 @@ library(grid)
 library(reshape2)
 opts_chunk$set(fig.width = 12, fig.height = 8, fig.align = "center", tidy = FALSE, 
     warning = FALSE)
-custom <- theme(plot.margin = unit(c(1, 1, 1, 1), "cm"), title = element_text(vjust = 2), 
-    axis.title.x = element_text(vjust = -1.25), axis.title.y = element_text(vjust = -0.1), 
-    text = element_text(size = 16, colour = "black"))
+custom <- theme(text = element_text(size = 16, colour = "black"), axis.text.x = element_text(colour = "black"), 
+    axis.text.y = element_text(colour = "black"), plot.margin = unit(c(1, 1, 
+        1, 1), "cm"), title = element_text(vjust = 2), axis.title.x = element_text(vjust = -1.25), 
+    axis.title.y = element_text(vjust = -0.1))
 ```
 
 
@@ -40,13 +41,13 @@ genre[which(count == 1 & movies$Romance == 1)] = "Romance"
 genre[which(count == 1 & movies$Short == 1)] = "Short"
 movies$genre <- factor(genre)
 
-eu <- transform(data.frame(EuStockMarkets), time = time(EuStockMarkets))
+eu <- transform(data.frame(EuStockMarkets), time = as.numeric(time(EuStockMarkets)))
 ```
 
 
 ## Question 1
 
-I place budget on a log scale, to see more clearly what is happening near `budget = 0`, which is otherwise obscured by overplotting. The logticks on the x axis make it harder to miss this scaling, and also helps with pinpointing particular x values. To help with the rest of the overplotting, I give the points some transparency. Because the rating scale only goes from 0 to 10, I add major axis lines for 1 through 10. 
+I place budget on a log scale, to see more clearly what is happening near `budget = 0`, which is otherwise obscured by overplotting. The logticks on the x axis make it harder to miss this scaling, and also helps with pinpointing particular x values. To help with the rest of the overplotting, I give the points some transparency. Because the rating scale only goes from 0 to 10, I add major axis lines for 1 through 10. I label the x-axis in thousands of dollars to shorten the raw display of the large raw numbers. I briefly considered labeling the x-axis in millions, but I thought that making the x-axis begin at a fraction of a unit would hurt more than it would help.
 
 
 ```r
@@ -57,15 +58,13 @@ q1 <- ggplot(data = movies,
        aes(x = budget,
            y = rating)) +
         geom_point(alpha=0.4) +
-        ggtitle('Overall relationship between budget and rating') +
-        xlab('log(Budget)') +
-        ylab('Average Rating') +
-        scale_y_continuous(breaks=1:10) +
         scale_x_log10(breaks=support,
-                      labels=dollar(support)) +
+                      labels=paste0(dollar(support/1000), 'k')) +
+        scale_y_continuous(breaks=1:10) +
         annotation_logticks(sides='b') +
-        theme(axis.text.x = element_text(angle=45,
-                                         vjust = .5)) +
+        ggtitle('Overall relationship between budget and rating') +
+        xlab('Budget in thousands') +
+        ylab('Average Rating') +
         custom
 print(q1)
 ```
@@ -74,10 +73,11 @@ print(q1)
 
 
 ## Question 2
+Here I reorder the levels of the `genre` factor to display the counts from greatest to smallest. I remove unnecessary x-axis gridlines and tick marks. The x and y axes are self apparent so I remove their titles. I remove the unnecessary and possibly confusing padding below zero on the y axis. Finally, a bit of transparency makes it easier to connect the bars on the far right with the y-axis labels.
 
 
 ```r
-movies$genre <- with(movies, reorder(genre, genre, function(x) -length(x)))
+movies$genre <- with(movies, reorder(genre, genre, function(x) - length(x)))
 
 ggplot(data = movies,
        aes(x = genre)) +
@@ -85,9 +85,11 @@ ggplot(data = movies,
   ggtitle('Number of movies by genre') +
   scale_y_continuous(breaks=seq(0, 1800, 200),
                      expand=c(0, 1),
-                     limits = c(0, 2000)) +
+                     limits = c(0, 1900)) +
   theme(axis.title = element_blank(),
-        axis.ticks.x = element_blank()) +
+        axis.ticks.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank()) +
   custom
 ```
 
@@ -95,14 +97,17 @@ ggplot(data = movies,
 
 
 ## Question 3
+When faceting the first plot by genre, I remove every other y-axis tick label to unclutter things a bit. I also rotate the x-axis labels to give them some breathing room.
+
 
 ```r
-(q1 + 
+q1 + 
   facet_wrap(~ genre) + 
   scale_y_continuous(breaks=seq(0,10,2)) +
-  ggtitle('Relationship between budget and rating (by genre)')) +
-  xlab('Budget (dollars) on a log scale') + 
-  ylab('Average Rating') + 
+  ggtitle('Relationship between budget and rating (by genre)') +
+  xlab('Budget') + ylab('Average Rating') + 
+  theme(axis.text.x = element_text(angle=45,
+                                   vjust=.5)) +
   custom
 ```
 
@@ -114,30 +119,34 @@ ggplot(data = movies,
 
 
 ## Question 4
+First I melt the EU data into the long format that ggplot prefers. I group and color the lines by index. I remove the padding on the left and right of the time series to show only the time frame for which data is available. I extend the y axis all the way down to $0.00, for an absolute point of reference. Lastly, I move the legend into the unused space of the plot for spatial efficiency. I got rid of the backgrounds for the legend keys, instead increasing the actual width of the symbol for each index. I think its much easier to identify the appropriate group this way (especially for slightly color blind people like me).
 
 
 ```r
-eu$time <- as.numeric(eu$time)
 eu <- melt(eu,
            id.vars = 'time',
-           variable.name = 'index',
-           value.name = 'price')
+           variable.name = 'Index',
+           value.name = 'Price')
 
 ggplot(data = eu,
        aes(x = time, 
-           y = price,
-           group = index,
-           colour = index)) +
+           y = Price,
+           group = Index,
+           colour = Index)) +
   geom_line() +
-  scale_x_continuous(breaks=c(1990:1999)) +
-  scale_y_continuous(breaks=seq(1000,10000, 1000),
-                     labels=dollar) +
+  scale_x_continuous(breaks=c(1990:1999),
+                     expand=c(0,0),
+                     limits=c(min(eu$time), max(eu$time))) +
+  scale_y_continuous(breaks=seq(0,10000, 1000),
+                     labels=dollar,
+                     limits=c(0,9000),
+                     expand=c(0,1)) +
   ggtitle('Price over time for each index') +
-  xlab('Year') +
-  ylab('Price') +
-  theme(legend.position = c(0.1, 0.78)) +
-  custom +
-  guides(colour = guide_legend(override.aes = list(size=5)))
+  xlab('Year') + ylab('Price') +
+  guides(colour = guide_legend(override.aes = list(size=6))) +
+  theme(legend.position = c(0.1, 0.78),
+        legend.key = element_blank()) +
+  custom
 ```
 
 <img src="figure/hw1-multiline.png" title="plot of chunk hw1-multiline" alt="plot of chunk hw1-multiline" style="display: block; margin: auto;" />
