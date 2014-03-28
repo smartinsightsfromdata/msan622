@@ -1,7 +1,7 @@
 Homework 1: Basic Charts
 ========================
 
-Configuration.
+Some general configuration. By default, ggplot places axis titles a little closer to the axis that I would like, so I move them away a bit. Increasing the overall plot margin is required to prevent the newly shifted titles from being cut off. I save these theme parameters to `custom` for use in all subsequent plots.
 
 
 ```r
@@ -14,7 +14,7 @@ opts_chunk$set(fig.width = 12, fig.height = 8, fig.align = "center", tidy = FALS
     warning = FALSE)
 custom <- theme(plot.margin = unit(c(1, 1, 1, 1), "cm"), title = element_text(vjust = 2), 
     axis.title.x = element_text(vjust = -1.25), axis.title.y = element_text(vjust = -0.1), 
-    text = element_text(size = 14), strip.text = element_text(size = 16))
+    text = element_text(size = 16, colour = "black"))
 ```
 
 
@@ -46,18 +46,26 @@ eu <- transform(data.frame(EuStockMarkets), time = time(EuStockMarkets))
 
 ## Question 1
 
+I place budget on a log scale, to see more clearly what is happening near `budget = 0`, which is otherwise obscured by overplotting. The logticks on the x axis make it harder to miss this scaling, and also helps with pinpointing particular x values. To help with the rest of the overplotting, I give the points some transparency. Because the rating scale only goes from 0 to 10, I add major axis lines for 1 through 10. 
+
 
 ```r
+logspace <- function( d1, d2, n) exp(log(10)*seq(d1, d2, length.out=n))
+support <- logspace(0,8,9)
+
 q1 <- ggplot(data = movies, 
        aes(x = budget,
            y = rating)) +
         geom_point(alpha=0.4) +
         ggtitle('Overall relationship between budget and rating') +
-        xlab('Budget (dollars) on a log scale') +
+        xlab('log(Budget)') +
         ylab('Average Rating') +
         scale_y_continuous(breaks=1:10) +
-        scale_x_log10(labels=comma) +
+        scale_x_log10(breaks=support,
+                      labels=dollar(support)) +
         annotation_logticks(sides='b') +
+        theme(axis.text.x = element_text(angle=45,
+                                         vjust = .5)) +
         custom
 print(q1)
 ```
@@ -75,8 +83,11 @@ ggplot(data = movies,
        aes(x = genre)) +
   geom_bar(alpha=0.75) +
   ggtitle('Number of movies by genre') +
-  xlab('Genre') +
-  ylab('Count') +
+  scale_y_continuous(breaks=seq(0, 1800, 200),
+                     expand=c(0, 1),
+                     limits = c(0, 2000)) +
+  theme(axis.title = element_blank(),
+        axis.ticks.x = element_blank()) +
   custom
 ```
 
@@ -119,13 +130,14 @@ ggplot(data = eu,
            colour = index)) +
   geom_line() +
   scale_x_continuous(breaks=c(1990:1999)) +
-  scale_y_continuous(breaks=seq(1000,10000, 1000)) +
+  scale_y_continuous(breaks=seq(1000,10000, 1000),
+                     labels=dollar) +
   ggtitle('Price over time for each index') +
   xlab('Year') +
   ylab('Price') +
   theme(legend.position = c(0.1, 0.78)) +
   custom +
-  guides(colour = guide_legend(override.aes = list(size=3)))
+  guides(colour = guide_legend(override.aes = list(size=5)))
 ```
 
 <img src="figure/hw1-multiline.png" title="plot of chunk hw1-multiline" alt="plot of chunk hw1-multiline" style="display: block; margin: auto;" />
