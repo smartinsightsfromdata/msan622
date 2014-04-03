@@ -5,7 +5,7 @@ schemes <- c("Default", "Accent", "Set1", "Set2", "Set3", "Dark2", "Pastel1", "P
 
 shinyUI(fluidPage(theme='bootstrap.slate.min.css',
   
-  titlePanel("IMDB Movie Ratings"),
+  titlePanel("IMDB Movie Rating vs Budgets"),
                   
   sidebarLayout(
     

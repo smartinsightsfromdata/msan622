@@ -19,12 +19,16 @@ genre[which(count == 1 & movies$Romance == 1)] = "Romance"
 genre[which(count == 1 & movies$Short == 1)] = "Short"
 movies$genre <- factor(genre)
 
+mpaas <- levels(movies$mpaa)[levels(movies$mpaa) != '']
+genres <- levels(movies$genre)
+
 # Themeing  
 logspace <- function( d1, d2, n) exp(log(10)*seq(d1, d2, length.out=n))
 support <- logspace(0,8,9)
 custom <- theme(text = element_text(size = 16, colour = "gray"), 
                 axis.text.x = element_text(colour = "gray"), 
                 axis.text.y = element_text(colour = "gray"),
+                axis.ticks = element_line(colour = 'gray'),
                 
                 title = element_text(vjust = 2),
                 axis.title.x = element_text(vjust = -1.25), 
@@ -40,27 +44,30 @@ custom <- theme(text = element_text(size = 16, colour = "gray"),
                 axis.line = element_line(colour = 'gray'),
                 legend.position = 'none')
 
+color <- c(brewer.pal(length(levels(movies$genre)), 'Set1'), "#FFFFFF")
+names(color) <- levels(movies$genre)
+
 shinyServer(function(input, output) {
   
   output$mpaa <- renderUI({
-    mpaas <- levels(movies$mpaa)[levels(movies$mpaa) != '']
     radioButtons('mpaa', 'MPAA Rating',
                  choices = c('All', mpaas),
                  selected = 'All')
   })
   
   output$genres <- renderUI({
-    genres <- levels(movies$genre)
     checkboxGroupInput('genres', 'Genres', 
                        choices  = genres)
   })
   
   output$plot <- renderPlot({
     
+    # Wait for UI controls to set
     if(is.null(input$mpaa)) {
       return()
     }  
     
+    # Selection logic
     if (input$mpaa != 'All' & length(input$genres) != 0) {
       dataset <- subset(movies,
                         mpaa == input$mpaa & genre %in% input$genres)
@@ -73,28 +80,43 @@ shinyServer(function(input, output) {
     } else {
       dataset <- movies
     }
-
-    p <- ggplot(data = dataset, 
-                aes(x = budget,
-                    y = rating,
-                    colour = genre)) +
-      geom_point(#colour = 'gray',
-        alpha = input$dot_alpha,
-        size = 1 + (input$dot_size / 3)) +
-      scale_x_log10(breaks=support,
-                    labels=paste0(dollar(support/1000), 'k'),
-                    limits=c(min(movies$budget, na.rm = T),
-                             max(movies$budget, na.rm = T))) +
-      scale_y_continuous(breaks=0:10,
-                         expand=c(0,0),
-                         limits=c(0,10.5)) +
-      annotation_logticks(sides='b',
-                          colour = 'gray') +
-      ggtitle('Overall relationship between budget and rating') +
-      xlab('Budget in thousands') + ylab('Average Rating') +
-      custom
-    print(p)
     
+    # Plot (empty plot if no data points are matched)
+    if (nrow(dataset) == 0) {
+      p <- ggplot(dataset) + 
+        geom_blank() + 
+        scale_x_log10(breaks=support,
+                      labels=paste0(dollar(support/1000), 'k'),
+                      limits=c(min(movies$budget, na.rm = T),
+                               max(movies$budget, na.rm = T))) +
+        scale_y_continuous(breaks=0:10,
+                           expand=c(0,0),
+                           limits=c(0,10.5)) +
+        annotation_logticks(sides='b',
+                            colour = 'gray') +
+        xlab('Budget in thousands') + ylab('Average Rating') +
+        custom
+    } else {
+      p <- ggplot(data = dataset, 
+                  aes(x = budget,
+                      y = rating,
+                      colour = genre)) +
+        geom_point(alpha = input$dot_alpha,
+                   size = 1 + (input$dot_size / 3)) +
+        scale_x_log10(breaks=support,
+                      labels=paste0(dollar(support/1000), 'k'),
+                      limits=c(min(movies$budget, na.rm = T),
+                               max(movies$budget, na.rm = T))) +
+        scale_y_continuous(breaks=0:10,
+                           expand=c(0,0),
+                           limits=c(0,10.5)) +
+        scale_colour_manual(values=color) +
+        annotation_logticks(sides='b',
+                            colour = 'gray') +
+        xlab('Budget in thousands') + ylab('Average Rating') +
+        custom
+    }
+    print(p)
   }, bg = 'transparent')
   
 })
