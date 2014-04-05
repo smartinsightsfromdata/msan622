@@ -1,5 +1,6 @@
 Homework 2: Interactivity
-==============================
+=========================
+**Spencer Boucher - sboucher@usfca.edu**
 
 This app can be accessed at [justmytwospence.shinyapps.io/homework2](https://justmytwospence.shinyapps.io/homework2).
 
