@@ -43,7 +43,10 @@ custom <- theme(text = element_text(size = 16, colour = "gray"),
                 
                 line = element_line(colour = 'gray'),
                 axis.line = element_line(colour = 'gray'),
-                legend.position = 'none')
+                legend.position = 'right',
+                legend.title = element_blank(),
+                legend.background = element_blank(),
+                legend.key = element_blank())
 
 shinyServer(function(input, output) {
   
@@ -57,7 +60,8 @@ shinyServer(function(input, output) {
   # Build genre UI element
   output$genres <- renderUI({
     checkboxGroupInput('genres', 'Genres', 
-                       choices  = genres)
+                       choices  = genres,
+                       selected = genres)
   })
   
   # Adjust dataset based on UI inputs
@@ -84,11 +88,13 @@ shinyServer(function(input, output) {
       inactive <- data.frame()
     }  
     
+    # Return the active and inactive partitions of the data
     current <- list(dataset, inactive)
     names(current) <- c('dataset', 'inactive')
     return(current)
   })
   
+  # Plot!
   output$plot <- renderPlot({
     
     # Wait for UI controls to set
@@ -99,34 +105,40 @@ shinyServer(function(input, output) {
     # Adjust color
     color <- c(brewer.pal(length(levels(movies$genre)), input$color_scheme), "#FFFFFF")
     names(color) <- levels(movies$genre)
+    print(length(color))
     
+    # Get the data
     inactive <- getdata()[['inactive']]
     active <- getdata()[['dataset']]
-    
-    print(nrow(inactive))
-    print(nrow(active))
-    
+
+    # Plot inactive data, if any    
     if (nrow(inactive) > 0) {
       p <- ggplot(data = inactive,
                   aes(x = budget, 
                       y = rating),
                   colour = 'grey') + 
-        geom_point(alpha = .1,
+        geom_point(alpha = .05,
                    size = 1 + (input$dot_size /3))
+    } else {
+      p <- ggplot()
     }
     
+    # Plot active data, if any
     if (nrow(active) > 0 ) {
     p <- p + geom_point(data = active,
                         alpha = input$dot_alpha,
                         size = 1 + (input$dot_size / 3),
                         aes(x = budget,
                             y = rating,
-                            colour = genre))
+                            colour = genre)) +
+      guides(colour = guide_legend(override.aes = list(shape = 15,
+                                                       size = 10)))
     }
     
+    # Add remaining plot layers, regardless of data 
     p <- p +
         scale_x_log10(breaks=support,
-                      labels=paste0(dollar(support/1000), 'k'),
+                      labels=dollar(support),
                       limits=c(min(movies$budget, na.rm = T),
                                max(movies$budget, na.rm = T))) +
         scale_y_continuous(breaks=0:10,
@@ -135,17 +147,18 @@ shinyServer(function(input, output) {
         scale_colour_manual(values=color) +
         annotation_logticks(sides='b',
                             colour = 'gray') +
-        xlab('Budget in thousands') + ylab('Average Rating') +
+        xlab('Budget') + ylab('Average Rating') +
         custom
     
     print(p)
     
   }, bg = 'transparent')
   
+  # Include the selected raw data
   output$table <- renderDataTable({
-    getdata()[['dataset']][,-7:-24]
-  }, options = list(sPaginationType = "two_button",
-                    sScrollY = "400px",
-                    bScrollCollapse = 'true'))
+    getdata()[['dataset']][,-7:-24]}, 
+    options = list(sPaginationType = "two_button",
+                   sScrollY = "400px",
+                   bScrollCollapse = 'true'))
   
 })

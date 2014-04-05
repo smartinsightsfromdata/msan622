@@ -33,7 +33,7 @@ shinyUI(fluidPage(theme='bootstrap.slate.min.css',
         tabPanel('Data',
                  br(),
                  div(class = 'well well-sm',
-                     'These are the movies that fit your selections'),
+                     'These are the movies that fit your selections, feel free to poke around a bit.'),
                  dataTableOutput('table'))
       )  
     )
