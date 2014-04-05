@@ -1,7 +1,7 @@
 library(shiny)
 library(ggplot2)
 
-schemes <- c("Default", "Accent", "Set1", "Set2", "Set3", "Dark2", "Pastel1", "Pastel2")
+schemes <- c("Accent", "Set1", "Set2", "Set3", "Dark2", "Pastel1", "Pastel2")
 
 shinyUI(fluidPage(theme='bootstrap.slate.min.css',
   
@@ -15,19 +15,27 @@ shinyUI(fluidPage(theme='bootstrap.slate.min.css',
         column(6, uiOutput('genres'))
       ),
       sliderInput('dot_size', 'Dot Size', 
-                  min=1, max=10, value=5),
+                  min=1, max=10, value=7),
       br(),
       sliderInput('dot_alpha', 'Dot Alpha', 
-                  min=0, max=1, value=.5, step=.1),
+                  min=0, max=1, value=.3, step=.1),
       br(),
       selectInput('color_scheme', 'Color Scheme', 
                   choices = schemes,
-                  selected = 'Default')
+                  selected = 'Accent')
     ),
     
     mainPanel(
-      plotOutput('plot',
-                 height = '600px')
+      tabsetPanel(
+        tabPanel('Plot',
+                 plotOutput('plot',
+                            height = '600px')),
+        tabPanel('Data',
+                 br(),
+                 div(class = 'well well-sm',
+                     'These are the movies that fit your selections'),
+                 dataTableOutput('table'))
+      )  
     )
     
   )

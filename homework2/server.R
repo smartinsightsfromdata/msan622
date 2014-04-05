@@ -2,6 +2,7 @@ library(shiny)
 library(ggplot2)
 library(scales)
 library(grid)
+library(RColorBrewer)
 
 # Munging
 data(movies)
@@ -44,20 +45,48 @@ custom <- theme(text = element_text(size = 16, colour = "gray"),
                 axis.line = element_line(colour = 'gray'),
                 legend.position = 'none')
 
-color <- c(brewer.pal(length(levels(movies$genre)), 'Set1'), "#FFFFFF")
-names(color) <- levels(movies$genre)
-
 shinyServer(function(input, output) {
   
+  # Build rating UI element
   output$mpaa <- renderUI({
     radioButtons('mpaa', 'MPAA Rating',
                  choices = c('All', mpaas),
                  selected = 'All')
   })
   
+  # Build genre UI element
   output$genres <- renderUI({
     checkboxGroupInput('genres', 'Genres', 
                        choices  = genres)
+  })
+  
+  # Adjust dataset based on UI inputs
+  getdata <- reactive({
+    
+    # Selection logic
+    if (input$mpaa != 'All' & length(input$genres) != 0) {
+      dataset <- subset(movies,
+                        mpaa == input$mpaa & genre %in% input$genres)
+      inactive <- subset(movies,
+                         mpaa != input$mpaa | ! genre %in% input$genres)
+    } else if (input$mpaa != 'All') {
+      dataset <- subset(movies,
+                        mpaa == input$mpaa)
+      inactive <- subset(movies,
+                         mpaa != input$mpaa)
+    } else if (length(input$genres) != 0) {
+      dataset <- subset(movies, 
+                        genre %in% input$genres)
+      inactive <- subset(movies,
+                         ! genre %in% input$genres)
+    } else {
+      dataset <- movies
+      inactive <- data.frame()
+    }  
+    
+    current <- list(dataset, inactive)
+    names(current) <- c('dataset', 'inactive')
+    return(current)
   })
   
   output$plot <- renderPlot({
@@ -67,42 +96,35 @@ shinyServer(function(input, output) {
       return()
     }  
     
-    # Selection logic
-    if (input$mpaa != 'All' & length(input$genres) != 0) {
-      dataset <- subset(movies,
-                        mpaa == input$mpaa & genre %in% input$genres)
-    } else if (input$mpaa != 'All') {
-      dataset <- subset(movies,
-                        mpaa == input$mpaa)
-    } else if (length(input$genres) != 0) {
-      dataset <- subset(movies, 
-                        genre %in% input$genres)
-    } else {
-      dataset <- movies
+    # Adjust color
+    color <- c(brewer.pal(length(levels(movies$genre)), input$color_scheme), "#FFFFFF")
+    names(color) <- levels(movies$genre)
+    
+    inactive <- getdata()[['inactive']]
+    active <- getdata()[['dataset']]
+    
+    print(nrow(inactive))
+    print(nrow(active))
+    
+    if (nrow(inactive) > 0) {
+      p <- ggplot(data = inactive,
+                  aes(x = budget, 
+                      y = rating),
+                  colour = 'grey') + 
+        geom_point(alpha = .1,
+                   size = 1 + (input$dot_size /3))
     }
     
-    # Plot (empty plot if no data points are matched)
-    if (nrow(dataset) == 0) {
-      p <- ggplot(dataset) + 
-        geom_blank() + 
-        scale_x_log10(breaks=support,
-                      labels=paste0(dollar(support/1000), 'k'),
-                      limits=c(min(movies$budget, na.rm = T),
-                               max(movies$budget, na.rm = T))) +
-        scale_y_continuous(breaks=0:10,
-                           expand=c(0,0),
-                           limits=c(0,10.5)) +
-        annotation_logticks(sides='b',
-                            colour = 'gray') +
-        xlab('Budget in thousands') + ylab('Average Rating') +
-        custom
-    } else {
-      p <- ggplot(data = dataset, 
-                  aes(x = budget,
-                      y = rating,
-                      colour = genre)) +
-        geom_point(alpha = input$dot_alpha,
-                   size = 1 + (input$dot_size / 3)) +
+    if (nrow(active) > 0 ) {
+    p <- p + geom_point(data = active,
+                        alpha = input$dot_alpha,
+                        size = 1 + (input$dot_size / 3),
+                        aes(x = budget,
+                            y = rating,
+                            colour = genre))
+    }
+    
+    p <- p +
         scale_x_log10(breaks=support,
                       labels=paste0(dollar(support/1000), 'k'),
                       limits=c(min(movies$budget, na.rm = T),
@@ -115,8 +137,15 @@ shinyServer(function(input, output) {
                             colour = 'gray') +
         xlab('Budget in thousands') + ylab('Average Rating') +
         custom
-    }
+    
     print(p)
+    
   }, bg = 'transparent')
+  
+  output$table <- renderDataTable({
+    getdata()[['dataset']][,-7:-24]
+  }, options = list(sPaginationType = "two_button",
+                    sScrollY = "400px",
+                    bScrollCollapse = 'true'))
   
 })
