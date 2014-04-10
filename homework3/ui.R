@@ -7,8 +7,12 @@ d3IO <- function(inputoutputID) {
 shinyUI(navbarPage(inverse = TRUE,
                    title = 'Know Your States',
                    tabPanel('Parallel Coordinates',
-                            includeHTML('index.html'),
-                            d3IO("d3io")),
-                   tabPanel('Map',
-                            rCharts::chartOutput('myplot', 'datamaps'))
+                            fluidRow(
+                              column(6,
+                                includeHTML('index.html'),
+                                d3IO("d3io")),
+                              column(6,
+                                rCharts::chartOutput('myplot', 'datamaps'),
+                                uiOutput('mystate'))
+                            ))
 ))
