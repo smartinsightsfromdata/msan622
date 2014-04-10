@@ -35,14 +35,13 @@
 </style>
 
 <script src="http://d3js.org/d3.v2.js"></script>
-
 <script type="text/javascript">
 
   var d3OutputBinding = new Shiny.OutputBinding();
   $.extend(d3OutputBinding, {
     find: function(scope) {
       return $(scope).find(".d3io");
-    },
+    },  
     renderError: function(el,error) {
       console.log("Foe");
     },
@@ -115,13 +114,13 @@
             delete dragging[d];
             transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
             transition(foreground)
-              .attr("d", path);
+            .attr("d", path);
             background
-              .attr("d", path)
-              .transition()
-              .delay(500)
-              .duration(0)
-              .attr("visibility", null);
+            .attr("d", path)
+            .transition()
+            .delay(500)
+            .duration(0)
+            .attr("visibility", null);
           }));
   
       // Add an axis and title.
@@ -165,33 +164,7 @@
           }) ? null : "none";
         });
       }
-
-      d3.select(window).on("resize", function() {
-
-        var container_width = $('div.tab-content').width()
-        var m = [30, 10, 10, 10],
-            w = container_width - m[1] - m[3],
-            h = 600 - m[0] - m[2];
-        var x = d3.scale.ordinal().rangePoints([0, w], 1)
-
-        d3.select('svg')
-          .attr("width", w + m[1] + m[3])
-
-        // Add grey background lines for context
-        d3.selectAll("g.background path")
-          .attr("d", line);
-
-    
-        // Add blue foreground lines for focus.
-        d3.selectAll("g.foreground path")
-          .attr("d", path);
-
-        d3.selectAll(".dimension")
-          .data(dimensions)
-          .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
-
-      });
-    }
+    }    
   });
   Shiny.outputBindings.register(d3OutputBinding);
   

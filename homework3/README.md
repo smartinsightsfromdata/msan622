@@ -3,12 +3,11 @@ Homework [#]: [HOMEWORK NAME]
 
 | **Name**  | [YOUR NAME]  |
 |----------:|:-------------|
-| **Email** | [USERNAME]@dons.usfca.edu |
+| Spencer Boucher| spencer.g.boucher@gmail.com |
 
 ## Instructions ##
 
-[INSTRUCTIONS: Include instructions on how to run your code.]
+App can be run at [justmytwospence.shinyapps.io/homework3](http://justmytwospence.shinyapps.io/homework3) 
 
 ## Discussion ##
 
-[DISCUSSION: Include a discussion here if required by the assignment.]
