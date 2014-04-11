@@ -40,19 +40,18 @@
   var d3OutputBinding = new Shiny.OutputBinding();
   $.extend(d3OutputBinding, {
     find: function(scope) {
-      return $(scope).find(".d3io");
-    },  
+      return $(scope).find(".parallel");
+    },
     renderError: function(el,error) {
       console.log("Foe");
     },
     renderValue: function(el,data) {
-      console.log(data)
-
-      var container_width = $('div.span6').width()
+    
+      var window_width = $('.tab-pane').width()
 
       var m = [30, 10, 10, 10],
-          w = container_width - m[1] - m[3],
-          h = 650 - m[0] - m[2];
+          w = window_width - m[1] - m[3],
+          h = 600 - m[0] - m[2];
     
       var x = d3.scale.ordinal().rangePoints([0, w], 1),
           y = {},
@@ -63,7 +62,7 @@
           background,
           foreground;
     
-      var svg = d3.select("#d3io svg")
+      var svg = d3.select("#parallel svg")
         .attr("width", w + m[1] + m[3])
         .attr("height", h + m[0] + m[2])
         .append("svg:g")
@@ -71,7 +70,7 @@
     
       // Extract   the list of dimensions and create a scale for each.
       x.domain(dimensions = d3.keys(data[0]).filter(function(d) {
-        return d != "State" && (y[d] = d3.scale.linear()
+        return d != "Name" && (y[d] = d3.scale.linear()
           .domain(d3.extent(data, function(p) { return +p[d]; }))
           .range([h, 0]));
       }));
@@ -172,7 +171,7 @@
   var d3InputBinding = new Shiny.InputBinding();
   $.extend(d3InputBinding, {
     find: function(scope) {
-      return $(scope).find(".d3io");
+      return $(scope).find(".parallel");
     },
     getValue: function(el) {
       return null; // not used at the moment
