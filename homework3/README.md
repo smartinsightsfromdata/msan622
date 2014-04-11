@@ -1,16 +1,16 @@
-Homework [#]: [HOMEWORK NAME]
+Homework 3:
 ==============================
 
-| **Name**  | [YOUR NAME]  |
+| **Name**  | Spencer Boucher  |
 |----------:|:-------------|
-| Spencer Boucher| spencer.g.boucher@gmail.com |
+| **Email** | spencer.g.boucher@gmail.com |
 
 ## Instructions ##
 
 App can be run at [justmytwospence.shinyapps.io/homework3](http://justmytwospence.shinyapps.io/homework3) 
 
 ## Discussion ##
-
+=======
 For this assignment I opted to use D3.js. In the case of the parallel coordinates plot and the scatterplot matrix, javascript was used directly via custom Shiny bindings. For the choropleth map, D3 was used indirectly via the rMaps package. The learning curve for these techniques was and continues to be very steep, so althought it has been a great learning experience, the visualizations are not quite as polished as I would like them to be. I will likely continue to tweak these plots in the future as I learn more about D3 and some of the more advanced Shiny internals for incorporating Javasript elements. For example, I am on my way toward using hover events in the choropleth map to change input parameters to other plots.
 
 ### Parallel coordinates
@@ -37,3 +37,6 @@ For this assignment I opted to use D3.js. In the case of the parallel coordinate
 - Each scatterplot is linked via brushing to all the others.
 - One conclusion that can be seen here is that there is no discenable correlation between income and murder rates, despite the fact that I would have expected there to be.
 
+=======
+ - My heatmap implementation is geographic in nature, ie a choropleth map
+ - I chose this technique because one of the most important choices when designing a regular heatmap is the ordering of the axes, but I was particularly interested in the geographical distribution of various attributes, which is hard to capture in this way.
