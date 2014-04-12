@@ -46,8 +46,10 @@
       console.log("Foe");
     },
     renderValue: function(el,data) {
-    
+
       var window_width = $('.tab-pane').width()
+
+      $("#parallel svg").empty();
 
       var m = [30, 10, 10, 10],
           w = window_width - m[1] - m[3],
