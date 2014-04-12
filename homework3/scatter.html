@@ -3,7 +3,6 @@
   #scatter svg {
     font: 10px sans-serif;
     padding: 10px;
-    margin-left: 50px;
   }
   
   #scatter .axis,
@@ -58,8 +57,8 @@
       $("#scatter svg").empty();
 
       var width = $('.tab-pane').width(),
-          size = 150  ,
-          padding = 5; 
+          size = 150,
+          padding = 20; 
       
       var x = d3.scale.linear()
           .range([padding / 2, size - padding / 2]);
