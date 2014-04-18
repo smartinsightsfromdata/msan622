@@ -7,6 +7,7 @@ Homework [#]: [HOMEWORK NAME]
 
 ## Instructions ##
 
+<<<<<<< HEAD
 App can be run at [justmytwospence.shinyapps.io/homework3](http://justmytwospence.shinyapps.io/homework3) 
 
 ## Discussion ##
@@ -36,3 +37,39 @@ For this assignment I opted to use D3.js. In the case of the parallel coordinate
 - Data points are colored by region. 
 - Each scatterplot is linked via brushing to all the others.
 - One conclusion that can be seen here is that there is no discenable correlation between income and murder rates, despite the fact that I would have expected there to be.
+=======
+Use the following code to run this `shiny` app:
+
+```
+library(shiny)
+runGitHub("msan622", "[username]", subdir = "homework3")
+```
+
+## Discussion ##
+
+### Technique 1: [TYPE] ###
+
+![technique1](technique1.png)
+
+[DISCUSSION]
+
+### Technique 2: [TYPE] ###
+
+![technique2](technique2.png)
+
+[DISCUSSION]
+
+### Technique 3: [TYPE] ###
+
+![technique3](technique3.png)
+
+[DISCUSSION]
+
+### Interactivity ###
+
+![screenshot](screenshot.png)
+
+[DISCUSSION]
+
+
+>>>>>>> 54950a81fe30d3db96980eddf196831824bcd4c9
