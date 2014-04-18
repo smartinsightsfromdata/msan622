@@ -23,6 +23,16 @@ For this assignment I opted to use D3.js. In the case of the parallel coordinate
  - One conclusion that can be seen is that states with low graduation rates also have higher illiteracy rates, higher murder rates, lower income, and lower life expectency.
 
 ### Choropleth
+
  - My heatmap implementation is geographic in nature, ie a choropleth map
  - I chose this technique because one of the most important choices when designing a regular heatmap is the ordering of the axes, but I was particularly interested in the geographical distribution of various attributes, which is hard to capture in this way.
- - 
+ - Each continuous variable in the dataset can be examined by the user via radio buttons.
+ - A continuous color scale from white to blue is used for each view on the data, with white being the minimum of the variable of interest and steel blue being the maximum. Note that the absolute minimum state is actually black at the moment, which is not ideal but I won't be able to pin down the fix until after the assignment due date.
+ - One conclusion that can be drawn here is that states in the South have some of the lowest incomes in the country, with the notable exception of Florida.
+
+### Scatterplot matrix
+
+- I decided to use a scatterplot matrix to view the pairwise correlations, to achieve a level of detail that is not achieved by the previous more general visualizations.
+- Data points are colored by region. 
+- Each scatterplot is linked via brushing to all the others.
+- One conclusion that can be seen here is that there is no discenable correlation between income and murder rates, despite the fact that I would have expected there to be.

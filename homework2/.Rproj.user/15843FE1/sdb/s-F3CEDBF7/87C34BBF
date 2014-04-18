@@ -1,0 +1,16 @@
+{
+    "contents" : "library(shiny)\nlibrary(ggplot2)\n\nschemes <- c(\"Accent\", \"Set1\", \"Set2\", \"Set3\", \"Dark2\", \"Pastel1\", \"Pastel2\")\n\nshinyUI(fluidPage(theme='bootstrap.slate.min.css',\n  \n  titlePanel(\"IMDB Movie Rating vs Budgets\"),\n                  \n  sidebarLayout(\n    \n    sidebarPanel(\n      fluidRow(\n        column(6, uiOutput('mpaa')),\n        column(6, uiOutput('genres'))\n      ),\n      sliderInput('dot_size', 'Dot Size', \n                  min=1, max=10, value=7),\n      br(),\n      sliderInput('dot_alpha', 'Dot Alpha', \n                  min=0, max=1, value=.3, step=.1),\n      br(),\n      selectInput('color_scheme', 'Color Scheme', \n                  choices = schemes,\n                  selected = 'Accent')\n    ),\n    \n    mainPanel(\n      tabsetPanel(\n        tabPanel('Plot',\n                 plotOutput('plot',\n                            height = '600px')),\n        tabPanel('Data',\n                 br(),\n                 div(class = 'well well-sm',\n                     'These are the movies that fit your selections, feel free to poke around a bit.'),\n                 dataTableOutput('table'))\n      )  \n    )\n    \n  )\n))",
+    "created" : 1396565002811.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2922827954",
+    "id" : "87C34BBF",
+    "lastKnownWriteTime" : 1396674627,
+    "path" : "~/msan622/homework2/ui.R",
+    "project_path" : "ui.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

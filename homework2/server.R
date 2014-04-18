@@ -20,9 +20,6 @@ genre[which(count == 1 & movies$Romance == 1)] = "Romance"
 genre[which(count == 1 & movies$Short == 1)] = "Short"
 movies$genre <- factor(genre)
 
-mpaas <- levels(movies$mpaa)[levels(movies$mpaa) != '']
-genres <- levels(movies$genre)
-
 # Themeing  
 logspace <- function( d1, d2, n) exp(log(10)*seq(d1, d2, length.out=n))
 support <- logspace(0,8,9)
@@ -50,6 +47,10 @@ custom <- theme(text = element_text(size = 16, colour = "gray"),
 
 shinyServer(function(input, output) {
   
+  local.movies <- movies
+  mpaas <- levels(local.movies$mpaa)[levels(local.movies$mpaa) != '']
+  genres <- levels(local.movies$genre)
+  
   # Build rating UI element
   output$mpaa <- renderUI({
     radioButtons('mpaa', 'MPAA Rating',
@@ -69,22 +70,22 @@ shinyServer(function(input, output) {
     
     # Selection logic
     if (input$mpaa != 'All' & length(input$genres) != 0) {
-      dataset <- subset(movies,
+      dataset <- subset(local.movies,
                         mpaa == input$mpaa & genre %in% input$genres)
-      inactive <- subset(movies,
+      inactive <- subset(local.movies,
                          mpaa != input$mpaa | ! genre %in% input$genres)
     } else if (input$mpaa != 'All') {
-      dataset <- subset(movies,
+      dataset <- subset(local.movies,
                         mpaa == input$mpaa)
-      inactive <- subset(movies,
+      inactive <- subset(local.movies,
                          mpaa != input$mpaa)
     } else if (length(input$genres) != 0) {
-      dataset <- subset(movies, 
+      dataset <- subset(local.movies, 
                         genre %in% input$genres)
-      inactive <- subset(movies,
+      inactive <- subset(local.movies,
                          ! genre %in% input$genres)
     } else {
-      dataset <- movies
+      dataset <- local.movies
       inactive <- data.frame()
     }  
     
@@ -100,12 +101,14 @@ shinyServer(function(input, output) {
     # Wait for UI controls to set
     if(is.null(input$mpaa)) {
       return()
-    }  
+    }
+    
+    color <- c(brewer.pal(length(levels(local.movies$genre)), input$color_scheme), "#FFFFFF")
+    names(color) <- levels(local.movies$genre)
     
     # Adjust color
-    color <- c(brewer.pal(length(levels(movies$genre)), input$color_scheme), "#FFFFFF")
-    names(color) <- levels(movies$genre)
-    print(length(color))
+    color <- c(brewer.pal(length(levels(local.movies$genre)), input$color_scheme), "#FFFFFF")
+    names(color) <- levels(local.movies$genre)
     
     # Get the data
     inactive <- getdata()[['inactive']]
@@ -139,8 +142,8 @@ shinyServer(function(input, output) {
     p <- p +
         scale_x_log10(breaks=support,
                       labels=dollar(support),
-                      limits=c(min(movies$budget, na.rm = T),
-                               max(movies$budget, na.rm = T))) +
+                      limits=c(min(local.movies$budget, na.rm = T),
+                               max(local.movies$budget, na.rm = T))) +
         scale_y_continuous(breaks=0:10,
                            expand=c(0,0),
                            limits=c(0,10.5)) +

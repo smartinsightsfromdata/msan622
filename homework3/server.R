@@ -1,7 +1,7 @@
 require(rMaps)
 require(rCharts)
-options(RCHART_WIDTH = 1000,
-        RCHART_HEIGHT = 600)
+options(RCHART_WIDTH = 910,
+        RCHART_HEIGHT = 420)
 
 shinyServer(function(input, output, session) {
   
@@ -15,47 +15,27 @@ shinyServer(function(input, output, session) {
                   'State' = rownames(states),
                   'Region' = state.region)
   
-  output$checkboxes <- renderUI({
-    radioButtons('variable',  
-                 'Measure of interest',
-                 choices = names(states_df)[-7:-12],
-                 selected = 'Population')
-  })
-  
   output$parallel <- reactive(function() {    
-    states[,1:6]
+    states[, input$variables]
   })
   
   output$scatter <- reactive(function() {
-    states[,c(2:6,10)]
+    states[, c(input$variables2, 'Region')]
   })
   
-  output$choropleth <- rCharts::renderChart2({
-    if (is.null(input$variable)) {
-      return()
-    }
-    
+  output$choropleth = rCharts::renderChart2({
     ichoropleth(
       as.formula(paste(input$variable, ' ~ State')), 
       data = states_df[,-7:-11],
       geographyConfig = list(
-      popupTemplate = "#! function(geography, data){
+        popupTemplate = paste0("#! function(geography, data){
         Shiny.onInputChange('state', geography.properties.name)
-        return '<div class=hoverinfo><strong>' + geography.properties.name + '</strong></div>';
-      } !#"))
+        return '<div class=hoverinfo><strong>' + geography.properties.name + '<br>' + data.", input$variable, "+ '</strong></div>';
+      } !#")
+      ),
+      legend=TRUE
+    )
   })
-  
-  #output$parallel <- rCharts::renderChart2({
-  #  parallel <- rCharts$new()
-  #  parallel$field('lib', 'parcoords') 
-  #  parallel$set(padding = list(top = 25, left = 5, bottom = 10, right = 0), 
-  #               width=800, height=400) 
-  #  parallel$set(data = toJSONArray(states_df, json = FALSE),
-  #               colorby = 'Region', 
-  #               #range = range(meanvars$Total.Revenue), 
-  #               colors = c('red','blue')) 
-  #  parallel$setLib("parcoords")
-  #  return(parallel)
-  #})
+
   
 })
