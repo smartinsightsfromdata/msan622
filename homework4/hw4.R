@@ -87,12 +87,12 @@ p <- ggplot(sotu_melted_df,
         axis.title.x = element_blank(),
         legend.position='none')
 
-print(p)
 ggsave('outliers.png', width=10, height = 5)
 
 #### Word cloud  ####
+
 png('wordcloud.png')
 sample <- as.matrix(sotu_tdm[, c(1, 56, 112, 168, 223)])
 colnames(sample) <- c('1790', '1845', '1901', '1958', '2014')
-comparison.cloud(sample, title.size=3, max.words=200, )
+comparison.cloud(sample, title.size=3, max.words=300)
 dev.off()
