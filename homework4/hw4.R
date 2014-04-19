@@ -69,28 +69,30 @@ p <- ggplot(sotu_melted_df,
                 y = value,
                 group = word,
                 colour = word)) +
-  geom_line() +
-  ggtitle("Outliers in the State of the Union's history") +
-  ylab("Frequency") +
+  geom_line(alpha=.5) +
+  ggtitle("Keyword outliers in the State of the Union:\n the outsized impact of wars") +
+  ylab("Word Frequency") +
   theme_minimal() +
   scale_x_discrete(expand = c(0, 0),
                    breaks = seq(1790, 2014, 10)) +
   scale_y_continuous(expand = c(0, 0)) +
   annotate("text", 
-           x = c(70, 80, 120, 145, 145, 175, 70), 
-           y = c(150, 75, 120, 200, 180, 110, 100), 
-           label = c('Mexico', 'Congress', 'Nation', 'Dollar', 'War', 'Program', 'War')) +
+           x = c(70, 120, 145, 145, 50, 210, 210, 210), 
+           y = c(150, 120, 200, 180, 100, 210, 195, 180), 
+           label = c('Mexico', 'Nation/Congress', 'Dollar', 'War', 'War', 'Nation', 'Congress', 'Program')) +
   theme(axis.ticks.x = element_blank(),
         panel.grid.major.x = element_blank(),
         axis.text.x = element_text(angle=45,
                                    vjust=.4),
-        axis.title.x = element_blank())
-        #legend.position='none')
+        axis.title.x = element_blank(),
+        legend.position='none')
 
 print(p)
-ggsave('outliers.png', scale=1.2)
+ggsave('outliers.png', width=10, height = 5)
 
 #### Word cloud  ####
-
-sample <- as.matrix(sotu_tdm[,seq(0,200,40)])
-comparison.cloud(sample, title.size=2)
+png('wordcloud.png')
+sample <- as.matrix(sotu_tdm[, c(1, 56, 112, 168, 223)])
+colnames(sample) <- c('1790', '1845', '1901', '1958', '2014')
+comparison.cloud(sample, title.size=3, max.words=200, )
+dev.off()
