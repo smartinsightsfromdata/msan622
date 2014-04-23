@@ -1,34 +1,32 @@
 Project Sketch
 ==============================
 
-This assignment will help you prepare for the final project. You should have already chosen a dataset to visualize. Next, you will sketch out the tools and packages you will use to prepare your dataset, and the initial set of techniques you will try to implement.
-
-:warning: Try not to spend over an hour on this assignment. The goal is to get you thinking about your final project, and planning a way forward for working on it.
-
 Planned Tools
 ------------------------------
 
-Include which `R` packages or other tools you plan to use for your final project, how you plan to use them, and why you choose them. Your final project should use at a minimum a combination of `R`, `ggplot2`, and `shiny` to visualize your dataset. 
-
-However, you may also want to use other packages or tools. In particular, we will **not** cover how to implement map or graph-based visualizations in `ggplot2`, as this may not be the best tool for those types of visualizations. You are welcome to learn and use the appropriate tool(s) for those types of visualizations if you want.
+I am planning on using D3.js most of the visualization. Mike Bostock and others have beautiful examples of the types of network graphics I would like to create that will serve as a good starting point. I *might* wrap D3 in the Shiny framework to use some of the Shiny UI components, ie buttons and sliders, but I think this will end up being easier to implement in pure HTML/Javascript, based on previous experience trying to shim D3 into Shiny for Homework #3.
 
 Planned Techniques
 ------------------------------
 
-Include a list of four different techniques you plan to implement, why you choose those techniques for your dataset, and what you hope to learn. You should have approximately 3 to 5 sentences per technique.
+I plan on visualizing the PubMed papers by looking at two networks, the co-occurence of key words in the titles and the co-occurence of authors. For the author co-occurence network, I plan on using a hierarchical edge binding layout like the one implemented here:
 
-Keep in mind you will be asked to implement 1 to 2 prototypes for peer review.
+[http://mbostock.github.io/d3/talk/20111116/bundle.html](http://mbostock.github.io/d3/talk/20111116/bundle.html)
+
+There are many many authors that have published in the PubMed archives, so I will likely need to threshold the authors that I choose to include in the visualization according to their prolificness. Additionally, the time frame that is visualized at any moment will be Nfilterable, making it somewhat of a time series visualization as well, and I might implement a limit on the total number of years that can be selected at once to further prevent overplotting.  
+
+The co-occurency of title keywords will be visualized using a hive plot, which collects nodes along particular categorical axes before creating the edges and allows those edges to affect the layout of the axes. This layout has also been implemented in D3:
+
+[http://bost.ocks.org/mike/hive/](http://bost.ocks.org/mike/hive/)
+
+Time filtering will be similarly incorporated. I will use field of study as the axes of the hive plot.
 
 Planned Interaction
 ------------------------------
 
-Describe the types of interaction you want to include (filtering, brushing, zooming, panning, sorting, and so on). You can discuss this per technique or overall if you plan to integrate all of the techniques into a single `shiny` app.
-
-Keep in mind you will be asked to implement at least one of your planned interactions along with your prototype.
+Network edges in both plots will be highlightable on hover events. A tooltip might also be included for hover events presenting the full title of the article. UI components will include a time filter / animation slider and a keyword filter text box for the hierarchical edge plot.
 
 Planned Interface
 ------------------------------
 
-Draw an annotated sketch illustrating the interface you plan to create for your prototypes and interactions. You can draw this on paper and upload a scan, use the free Google Drive Drawing tool, or use any other tool that allows you to upload the result as a PDF.
-
-This does not have to be anything fancy. Just enough to show you have thought about how you would like to bring everything together. 
+![sketch](https://github.com/justmytwospence/msan622/blob/master/project-sketch/sketch.png?raw=true)
