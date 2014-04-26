@@ -1,18 +1,34 @@
 shinyUI(fluidPage(theme = 'bootstrap.min.css',
-  headerPanel('Seatbelt deaths'),
-  
+  br(),
   sidebarPanel(width = 3,
+               wellPanel(
+               p('Area chart controls'),
                sliderInput('slider', 'Time window',
                            min = 1969, max = 1985,
-                           value = c(1969, 1970), step = 1/12,
+                           value = c(1969, 1972), step = 1/12,
                            round = FALSE, ticks = TRUE,
-                           format = "####.##")
+                           format = "####.##")),
+               br(),
+               hr(),
+               wellPanel(
+               p('Heat map controls'),
+               checkboxInput('type', 'Radial display?', 
+                             value=FALSE))
   ),
   
   mainPanel(width = 9,
-            plotOutput(outputId = "mainPlot", 
-                       width = "100%", height = "400px"),
-            plotOutput(outputId = "overviewPlot",
-                       width = "100%", height = "200px")
+            tabsetPanel(
+              tabPanel('Area chart',
+                br(),
+                plotOutput(outputId = 'mainPlot', 
+                           width = '100%', height = '400px'),
+                plotOutput(outputId = 'overviewPlot',
+                           width = '100%', height = '200px')
+              ),
+              tabPanel('Heat map',
+                plotOutput(outputId = 'heatmapPlot',
+                           width = '100%', height = '700px')
+              )
+            )
   )
 ))

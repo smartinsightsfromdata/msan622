@@ -9,5 +9,9 @@ shinyServer(function(input, output) {
     if (is.null(input$slider)) { return() }
     print(plotOverview(input$slider))
   }, bg = 'transparent')
+  
+  output$heatmapPlot <- renderPlot({
+    print(plotHeat(input$type))
+  }, bg = 'transparent')
     
 })
