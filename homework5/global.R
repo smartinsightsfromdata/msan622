@@ -10,8 +10,7 @@ dataset$time <- as.numeric(time(Seatbelts))
 dataset$year <- floor(dataset$time)
 dataset$month <- round(12 * (dataset$time - floor(dataset$time)) +1)
 dataset <- melt(dataset,
-                id.vars = c('time', 'year', 'month'),
-                value.name = 'Deaths')
+                id.vars = c('time', 'year', 'month'))
 
 grey <- "#465A61"
 
