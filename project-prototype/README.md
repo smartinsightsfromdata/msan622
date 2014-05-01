@@ -11,7 +11,30 @@ Ideally, these would be based on your project sketch.
 
 ## Discussion ################
 
-Please include a `README.md` with a brief description of your dataset, an image of your static prototype and description of that prototype, and a screenshot of your interface and a description of that interface.
+This dataset is a collection of 132,308 reddit.com submissions. Each submission is of an image, which has been submitted to reddit multiple times. For each submission, features include the number of ratings (positive/negative), the submission title, and the number of comments it received.
+
+|Number of submissions | 132,308 |
+|Number of unique images | 16,736 |
+|Average number of times an image is resubmitted | 7.9 |
+|Timespan | July 2008 - Jan 2013 |
+
+|Variable|Description|
+|---|---|
+|image_id| id of the image, submissions with the same id are of the same image|
+|unixtime| time of the submission (unix time)|
+|rawtime| raw text of the time|
+|title| submission title|
+|total_votes| number of upvotes + number of downvotes|
+|reddit_id| id of the submission on reddit, e.g. reddit.com/14c3ls|
+|number_of_upvotes| number of upvotes|
+|subreddit| subreddit, e.g. reddit.com/r/pics/|
+|number_of_downvotes| number of downvotes|
+|localtime| local time of the submission (unix time)|
+|score| number of upvotes - number of downvotes|
+|number_of_comments| number of comments the submission received|
+|username| name of the user who submitted the image e.g. www.reddit.com/user/thatseffedup|
+
+After some minor data cleanup with the `csvclean` utility, I used the `networkx` python module to generate the graph structure and export it to a D3-friendly JSON format.
 
 ## Submission ################
 
