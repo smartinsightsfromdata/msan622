@@ -17,22 +17,36 @@ shinyServer(function(input, output) {
                    multiple = TRUE)
   })
   
+  output$subset2 <- renderUI({
+    selectizeInput('subset2',
+                   'Subreddits:',
+                   choices = levels(d$subreddit),
+                   selected = c('gifs'),
+                   multiple = TRUE)
+  })
+  
   get_data <- reactive({
-    return(subset(d, subreddit %in% input$subset))
+    subset(d, subreddit %in% input$subset)
+  })
+  
+  get_data2 <- reactive({
+    subset(d, subreddit %in% input$subset2)
   })
   
   output$datatable <- renderDataTable({
-    dat <- get_data()
-    dat[, !(names(dat) %in% c('unixtime', 'localtime', 'reddit_id'))]
+    d[, !(names(d) %in% c('hour', 'X.image_id', 'unixtime', 'localtime', 'reddit_id'))]
   })
 
   output$timePlot <- renderPlot({
     dat <- get_data()
+    if (nrow(dat) == 0) { return() }
     print(plotTime(dat))
-  })
+  }, bg = 'transparent')
 
-  output$overviewPlot <- renderPlot({
-    print(qplot(c(1,2,3)))
-  }, width = 'auto')
+  output$votePlot <- renderChart({
+    dat <- get_data2()
+    if (nrow(dat) == 0) { return() }    
+    plotVotes(dat)
+  })
 
 })
