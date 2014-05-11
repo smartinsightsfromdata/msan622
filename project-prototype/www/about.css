@@ -25,3 +25,7 @@
 p { text-indent: 1.5em; }
 
 .btn { text-decoration: none }
+
+a.btn, a.btn:visited {
+  color: #ece9d7;
+}

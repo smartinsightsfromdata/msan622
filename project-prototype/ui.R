@@ -12,8 +12,10 @@ shinyUI(navbarPage(theme = 'superhero.css',
                                 br(),
                                 p('This dataset is a collection of 132,308 reddit.com submissions between July 2008 and January 2013. Each submission is of an image, which has been submitted to reddit multiple times. The dataset was collated by H. Lakkaraju, J. J. McAuley, and J. Leskovec.'),
                                 br(),
-                                HTML('<a href="http://spencerboucher.com" type="button" class="btn btn-lg btn-primary">My Blog</a>
-                                      <a href="http://snap.stanford.edu/data/web-Reddit.html" type="button" class="btn btn-lg btn-primary">The Data</a>')
+                                HTML('<div style="text-align: center; margin-top: 20px">
+                                      <a href="http://spencerboucher.com" type="button" class="btn btn-lg btn-primary">My Blog</a>
+                                      <a href="http://snap.stanford.edu/data/web-Reddit.html" type="button" class="btn btn-lg btn-primary">The Data</a>
+                                      </div>')
                               ),
                               column(width = 5,
                                 h4('Still confused? Watch this before you dive in:'),
@@ -40,9 +42,9 @@ shinyUI(navbarPage(theme = 'superhero.css',
                                                   '',
                                                   choices = c('Total_votes', 'Upvotes', 'Downvotes', 'Score')))),
                             fluidRow(
-                              column(width = 9, offset = 1,
+                              column(width = 10, offset = 1,
                                      plotOutput('timePlot',
-                                                width = 1200,
+                                                width = '100%',
                                                 height = 600)))
                             ),
                    
@@ -51,11 +53,14 @@ shinyUI(navbarPage(theme = 'superhero.css',
                             includeHTML('force.html')
                             ),
                    
-                   tabPanel('Janky Sankey', height=1000,
+                   tabPanel('Flow', height=1000,
                             includeCSS('www/janky.css'),
                             tags$head(
                               tags$script(src = 'http://d3js.org/d3.v3.min.js')
                             ),
+                            fluidRow(
+                              column(width = 8, offset = 2,
+                                     p('Where do images first appear, and then where do they end up?'))),
                             fluidRow(
                               column(width = 8, offset = 2,
                                      htmlOutput('sankeyPlot')))
