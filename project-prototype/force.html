@@ -1,72 +1,74 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+  <div id="container" class="container">
 
-.node {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
+    <!--<h2>Subreddit content similarity graph</h2>-->
+    <p>Subreddits similar to one another according to how often they feature the same content. Subreddit nodes are sized based on total number of posts, and colored by TBD.</p>
 
-.link {
-  stroke: #999;
-  stroke-opacity: .6;
-}
+    <div id="controls">
+      <div id="song_selection" class="control">
+        <h3>Subreddit</h3>
+        <select id="song_select">
+          <option value="subgraph.json">Subgraph</option>
+          <option value="sledgehammer_2_rounds.json">Sledgehammer</option>
+          <option value="poker_face.json">Poker Face</option>
+          <option value="jolene.json">Jolene</option>
+          <option value="helplessness_blues.json">Helplessness Blues</option>
+          <option value="she_said.json">She Said She Said</option>
+          <option value="short_skirt.json">Short Skirt, Long Jacket</option>
+        </select>
+      </div>
+      <div id="layouts" class="control">
+        <h3>Layout</h3>
+        <a id="force" class="active">Force Directed</a>
+        <a id="radial">Artists</a>
+      </div>
+      <div id="filters" class="control">
+        <h3>Filter</h3>
+        <a id="all" class="active">All</a>
+        <a id="popular">Popular</a>
+        <a id="obscure">Obscure</a>
+      </div>
+      <div id="sorts" class="control">
+        <h3>Sort</h3>
+        <a id="songs" class="active">Songs</a>
+        <a id="links">Links</a>
+      </div>
+      <!--
+      <div id="search_section" class="control">
+        <form id="search_form" action=""  method="post">
+          <p class="search_title">Search <input type="text" class="text-input" id="search" value="" /></p>
+        </form>
+      </div>
+      -->
+    </div>
 
-</style>
-<body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script>
+    <div id="main" role="main">
+      <div id="vis"></div>
+    </div>
 
-var width = 960,
-    height = 500;
+  </div> <!--! end of #container -->
 
-var color = d3.scale.category20();
 
-var force = d3.layout.force()
-    .charge(-12000)
-    .linkDistance(30)
-    .size([width, height]);
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
 
-d3.json("subgraph.json", function(error, graph) {
-  force
-      .nodes(graph.nodes)
-      .links(graph.links)
-      .start();
+  <script defer src="js/plugins.js"></script>
+  <script defer src="js/script.js"></script>
+  <script src="js/libs/coffee-script.js"></script>
+  <script src="js/libs/d3.v2.js"></script>
+  <script src="js/Tooltip.js"></script>
+  <script type="text/coffeescript" src="coffee/vis.coffee"></script>
 
-  var weightScale = d3.scale.linear()
-      .domain()
+  <script> // Change UA-XXXXX-X to be your site's ID
+    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    Modernizr.load({
+      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+    });
+  </script>
 
-  var link = svg.selectAll(".link")
-      .data(graph.links)
-    .enter().append("line")
-      .attr("class", "link")
-      .style("stroke-width", 1)
-      //.style("stroke-width", function(d) { return Math.sqrt(d.weight); });
 
-  var node = svg.selectAll(".node")
-      .data(graph.nodes)
-    .enter().append("circle")
-      .attr("class", "node")
-      .attr("r", 5)
-      .style("fill", function(d) { return color(d.group); })
-      .call(force.drag);
-
-  node.append("title")
-      .text(function(d) { return d.name; });
-
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-  });
-});
-
-</script>
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+  

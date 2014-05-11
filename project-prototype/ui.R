@@ -2,7 +2,7 @@ library(shiny)
 library(ggplot2)
 
 shinyUI(navbarPage(theme = 'superhero.css',
-                   title = 'Secrets of Reddit',
+                   title = img(src = 'reddit.png', height = 50, width = 50),
                    tabPanel('About',
                             includeCSS('www/about.css'),
                             fluidRow(
@@ -10,7 +10,10 @@ shinyUI(navbarPage(theme = 'superhero.css',
                                 br(),
                                 p('Reddit /ˈrɛdɪt/ is an entertainment, social networking service and news website where registered community members can submit content, such as text posts or direct links. Only registered users can then vote submissions "up" or "down" to organize the posts and determine their position on the site\'s pages. Content entries are organized by areas of interest called "subreddits".'),
                                 br(),
-                                p('This dataset is a collection of 132,308 reddit.com submissions between July 2008 and January 2013. Each submission is of an image, which has been submitted to reddit multiple times. The dataset was collated by H. Lakkaraju, J. J. McAuley, and J. Leskovec.')
+                                p('This dataset is a collection of 132,308 reddit.com submissions between July 2008 and January 2013. Each submission is of an image, which has been submitted to reddit multiple times. The dataset was collated by H. Lakkaraju, J. J. McAuley, and J. Leskovec.'),
+                                br(),
+                                HTML('<a href="http://spencerboucher.com" type="button" class="btn btn-lg btn-primary">My Blog</a>
+                                      <a href="http://snap.stanford.edu/data/web-Reddit.html" type="button" class="btn btn-lg btn-primary">The Data</a>')
                               ),
                               column(width = 5,
                                 h4('Still confused? Watch this before you dive in:'),
@@ -20,37 +23,47 @@ shinyUI(navbarPage(theme = 'superhero.css',
                               )
                             ),
                    
-                   tabPanel('By time',
-                            sidebarLayout(
-                              
-                              sidebarPanel(width = 2,
-                                           uiOutput('subset')),
-                              
-                              mainPanel(width = 10,
-                                        titlePanel('Effect of submission time on score'),
-                                        plotOutput('timePlot', height = 600))
-                                
-                            )),
-                   
                    tabPanel('By subreddit',
                             includeCSS('www/votes.css'),
-                            sidebarLayout(
-                              
-                              sidebarPanel(width = 2,
-                                           uiOutput('subset2')),
-                              
-                              mainPanel(width = 10,
-                                        titlePanel('Activity by subreddit'),
-                                        showOutput('votePlot', 'nvd3'))
-                              
-                              )),
+                            fluidRow(
+                              column(width = 10, offset = 1,
+                                     uiOutput('subset2'))),
+                            showOutput('votePlot', 'nvd3')
+                   ),
                    
-                   tabPanel('Network graph',
-                            includeCSS('www/graph.css'),
-                            includeHTML('index.html')
+                   tabPanel('By time',
+                            fluidRow(
+                              column(width = 7, offset = 1,
+                                     uiOutput('subset')),
+                              column(width = 3, 
+                                     selectInput('type',
+                                                  '',
+                                                  choices = c('Total_votes', 'Upvotes', 'Downvotes', 'Score')))),
+                            fluidRow(
+                              column(width = 9, offset = 1,
+                                     plotOutput('timePlot',
+                                                width = 1200,
+                                                height = 600)))
                             ),
                    
-                   tabPanel('Repost co-occurency'),
+                   tabPanel('Network graph', height = 1000,
+                            includeCSS('www/graph.css'),
+                            includeHTML('force.html')
+                            ),
+                   
+                   tabPanel('Janky Sankey', height=1000,
+                            includeCSS('www/janky.css'),
+                            tags$head(
+                              tags$script(src = 'http://d3js.org/d3.v3.min.js')
+                            ),
+                            fluidRow(
+                              column(width = 8, offset = 2,
+                                     htmlOutput('sankeyPlot')))
+                            ),
+                   
+                   tabPanel('networkPlot',
+                            htmlOutput('networkPlot')
+                            ),
                    
                    tabPanel('Raw data',
                             dataTableOutput('datatable'))

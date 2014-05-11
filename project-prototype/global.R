@@ -4,39 +4,33 @@ library(grid)
 library(plyr)
 library(reshape2)
 library(rCharts)
-
-x <- data.frame(USPersonalExpenditure)
-colnames(x) <- substr(colnames(x), 2, 5)
-a <- rCharts:::Highcharts$new()
-a$chart(type = "column")
-a$title(text = "US Personal Expenditure")
-a$xAxis(categories = rownames(x))
-a$yAxis(title = list(text = "Billions of dollars"))
-a$data(x)
-print(a)
-
-data(economics, package = "ggplot2")
-econ <- transform(economics, date = as.character(date))
-m1 <- mPlot(x = "date", y = c("psavert", "uempmed"), type = "Line", data = econ)
-m1$set(pointSize = 0, lineWidth = 1)
-print(m1)
+library(RCurl)
+library(d3Network)
 
 d <- read.csv('redditSubmissions_out.csv')
-names(d)[7] <- 'upvotes'
-names(d)[9] <- 'downvotes'
-names(d)[12] <- 'comments'
-
 d$unixtime <- as.POSIXlt(d$unixtime,
                          origin = "1970-01-01",
                          tz = "GMT")
 d$hour <- d$unixtime$hour
+names(d) <- c('Image_ID', 'Time', 'Rawtime', 'Title', 'Total_votes', 'Reddit_ID', 'Upvotes', 'Subreddit', 'Downvotes', 'Local_time', 'Score', 'Comments', 'Username', 'Hour')
+
+popular <- by(d, d$Subreddit, nrow)
+popular <- names(popular)[popular > 100]
+popular <- subset(d, Subreddit %in% popular)
+popular$Subreddit <- droplevels(popular$Subreddit)
 #save(d, file = 'data.Rdata')
 #d <- load('data.Rdata')
 
-custom <- theme(text = element_text(size = 16, colour = "gray"), 
-                axis.text.x = element_text(colour = "gray"), 
-                axis.text.y = element_text(colour = "gray"),
-                axis.ticks = element_line(colour = 'gray'),
+nodes <- JSONtoDF(file = 'sankey.json', array = 'nodes')
+links <- JSONtoDF(file = 'sankey.json', array = 'links')
+#index <- as.numeric(row.names(nodes)[nodes$id == '0pics']) - 1
+#links <- subset(links, source == index & weight > 1)
+#nodes <- data.frame(id = c(nodes[unique(links$target) + 1, ]
+
+custom <- theme(text = element_text(size = 16, colour = "#ece9d7"), 
+                axis.text.x = element_text(colour = "#ece9d7"), 
+                axis.text.y = element_text(colour = "#ece9d7"),
+                axis.ticks = element_line(colour = '#ece9d7'),
                 
                 title = element_text(vjust = 2),
                 axis.title.x = element_text(vjust = -1.25), 
@@ -46,40 +40,52 @@ custom <- theme(text = element_text(size = 16, colour = "gray"),
                 plot.margin = unit(c(1, 1, 1, 1), "cm"),
                 
                 panel.background = element_blank(),
-                panel.grid = element_blank(),
+                panel.grid.minor.x = element_blank(),
+                panel.grid = element_line(size=.1),
                 
-                line = element_line(colour = 'gray'),
-                axis.line = element_line(colour = 'gray'),
-                legend.position = 'right',
+                line = element_line(colour = '#ece9d7'),
+                axis.line = element_line(colour = '#ece9d7'),
+                
+                legend.position = 'top',
+                legend.direction = 'horizontal',
                 legend.title = element_blank(),
                 legend.background = element_blank(),
                 legend.key = element_blank())
 
-plotTime <- function(dataset) {
-  dd <- aggregate(score ~ subreddit + hour, data = dataset, mean)
+plotTime <- function(dataset, type) {
+  stderror <- function(x) { sd(x, na.rm = TRUE) / length(x) }
+  dd <- cbind(aggregate(as.formula(paste(type, ' ~ Subreddit + Hour')), data = dataset, mean),
+              sd = aggregate(as.formula(paste(type, ' ~ Subreddit + Hour')), data = dataset, stderror)[,3])
   ggplot(data = dd,
-         aes(x = hour,
-             y = score,
-             group = subreddit,
-             colour = subreddit)) +
-    geom_line() +
+         aes_string(x = 'Hour',
+                    y = type,
+                    group = 'Subreddit')) +
+    geom_line(aes(colour = Subreddit)) +
+    geom_ribbon(aes_string(ymin = paste(type, ' - sd'),
+                           ymax = paste(type, ' + sd'),
+                           fill = 'Subreddit'),
+                alpha = .5) +
     xlab('Time') +
     scale_x_continuous(expand = c(0,0),
-                       breaks = seq(0:23),
-                       labels = c(paste(seq(1,12),'am'),
-                                  paste(seq(1,12),'pm'))) +
+                       breaks = 0:23,
+                       labels = c('12 am',
+                                  paste(seq(1, 11),'am'),
+                                  '12 pm',
+                                  paste(seq(1, 11),'pm'))) +
     ylab('Average Score') +
+    scale_y_continuous(expand = c(0,0)) +
     custom
 }
 
 plotVotes <- function(dataset) {
-  dd <- melt(cbind(aggregate(downvotes ~ subreddit, data = dataset, mean),
-                   aggregate(upvotes ~ subreddit, data = dataset, mean))[,-3])
-  n <- nPlot(value ~ subreddit,
+  dd <- melt(cbind(aggregate(Downvotes ~ Subreddit, data = dataset, mean),
+                   aggregate(Upvotes ~ Subreddit, data = dataset, mean)[,-3],
+                   aggregate(Comments ~ Subreddit, data = dataset, mean)))
+  n <- nPlot(value ~ Subreddit,
              data = dd,
              group = 'variable',
              type = 'multiBarChart',
              dom = 'votePlot',
-             width = 1000,
+             width = 1200,
              height = 600)
 }

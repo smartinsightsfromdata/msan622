@@ -1,3 +1,32 @@
+.shiny-output-error, .shiny-output-error:before {
+  visibility: hidden; 
+}
+
 text {
   fill: #ece9d7;
+}
+.nv-x.nv-axis text {
+  font: normal 20px Arial !important;
+}
+
+line, path {
+  stroke: #ece9d7 !important;
+}
+
+.nvtooltip, .nvtooltip h3 {
+  background: #45515f;
+}
+
+.selectize-input, .selectize-dropdown {
+  background: #45515f !important;
+}
+.selectize-input {
+  border: none;
+}
+.selectize-dropdown-content, .item{ 
+  color: #ece9d7;
+  text-shadow: none;
+}
+#votePlot {
+  margin-left: 100px;
 }
