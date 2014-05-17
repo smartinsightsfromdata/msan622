@@ -62,12 +62,7 @@ shinyUI(navbarPage(theme = 'superhero.css',
                             fluidRow(column(width = 8, offset = 2,
                                             p('Images are originally submitted to the subreddits on the left. With each subsequent submission, the "flow" to the right.'))),
                             fluidRow(column(width = 8, offset = 2,
-                                            HTML('<iframe src="sankey.html" height=642 width=824 frameBorder="0"></iframe>'),
-                                            tags$iframe(src = 'sankey.html',
-                                                        scrolling = 'no',
-                                                        seamless = NA,
-                                                        height=642,
-                                                        width=824)))
+                                            HTML('<iframe src="sankey.html" height=642 width=824 frameBorder="0"></iframe>')))
                             ),
 
                    tabPanel('Raw data',

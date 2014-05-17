@@ -7,14 +7,14 @@ Final Project
 
 This dataset is a collection of 132,308 reddit.com submissions. Each submission is of an image, which has been submitted to reddit multiple times. Each submission includes features such as the number of ratings (positive/negative), the submission title, and the number of comments it received. The splash page of my visualization links to the original data (via Stanford University), as well as a short informative video that explains Reddit to users who may be unfamiliar. The full data set can be browsed interactively in the final page of my visualization (Raw Data).
 
-|Dataset statistics | test |
+|Dataset statistics |  |
 |-------------------|------------|
 |Number of submissions | 132,308|
 |Number of unique images | 16,736|
 |Average number of times an image is resubmitted | 7.9|
 |Timespan | July 2008 -- January 2013|
 
-|Variables |test|
+|Variables |   |
 |---------|----|
 |image_id | id of the image, submissions with the same id are of the same image |
 |unixtime | time of the submission (unix time) |
