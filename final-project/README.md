@@ -7,6 +7,8 @@ Final Project
 
 This dataset is a collection of 132,308 reddit.com submissions. Each submission is of an image, which has been submitted to reddit multiple times. Each submission includes features such as the number of ratings (positive/negative), the submission title, and the number of comments it received. The splash page of my visualization links to the original data (via Stanford University), as well as a short informative video that explains Reddit to users who may be unfamiliar. The full data set can be browsed interactively in the final page of my visualization (Raw Data).
 
+![Splash page](https://github.com/justmytwospence/msan622/blob/master/final-project/splash.png?raw=true)
+
 |Dataset statistics |  |
 |-------------------|------------|
 |Number of submissions | 132,308|
@@ -75,32 +77,16 @@ Once the data was in the right format, I used the D3 wrapper package `d3Network`
 
 The only lie factor in this diagram is a consequence of the fact that I "trimmed" the underlying ddirected graph to remove very small edges. Therefore the entire graph is not represented, but the most important pieces are. There is quite a bit of information in this visualization and it is pretty good at conveying a sense of the *overall* submission flow, but one limitation is that the path of individual submissions cannot be traced. Additionally, it cannot be determined *which* of a node's input edges corresponds to which of that node's output edges.
 
-- How you encoded the data (i.e. mapping between columns and preattentive attributes)
-
-- An evaluation of its lie factor, data density, and data to ink ratio
-
-- What you think the visualization excels at (e.g. showing an overview of the dataset, identifying outliers, identifying patterns or trends, identifying clusters, comparison, etc.)
-
-- What _you_ learned about the dataset from the visualization
-
-This discussion should be approximately 2 to 5 paragraphs for each visualization, and this will heavily influence your score for this visualization.
-
 ### Interactivity ###
 
 It is my personal perspective that a visualization should not provide interactivity without a particular reason for doing so. I therefore avoided willy nilly zooming, subsetting, and especially aesthetic interactivity. Rather, I curated the particular things that I found to be the most interesting/important. There are two key interactive components here. First is the ability for the user to select and inspect the particular subreddits that they are interested in, which is available in both the grouped bar chart and the grouped line chart. The second is the ability to select the metric(s) of interest, also available in both the grouped bar chart and the grouped line chart.
 
-Please include an "Interactivity" section where you discuss the interactivity implemented in your project. Please discuss the following:
-
-- The type(s) of interactivity you implemented
-
-- How the interactivity enhances your visualization(s)
-
-For example, interactivity can help provide focus or context, help overcome overplotting issues, decrease or increase data density, and so on. This discussion should be approximately 2 to 5 paragraphs, depending on the amount of interactivity you implemented.
+The force layout diagram has two main forms of interactivity. First, three separate views on the same network are presented and the user can switch back and forth at will. Second, hovering over nodes provides a tooltip with the name of the node. This prevents the graphical overload that would occur if all the node labels were presented at once. The user can also click and drag nodes, which theoretically allows them to tweak node placement to investigate particular relationships within the network. I don't find the physics of the simulation condusive to this type of interation however, so its really more of an amusing way for the user to get a physical feel for the network.
 
 ### Prototype Feedback ###
 
-The original prototype that I demonstrated included only a less sophisticated grouped line chart, and several of my experimentations with various network visualizations. The most important feedback I received was confirmation that an inclusion of standard error in my aggregations was necessary. Additionally, it was great to talk through different ways of visualizing the "flow" piece of the equation. The idea for the Sankey diagram did not come up during the review, but our conversation got my gears spinning and encouraged me to keep thinking outside of the box. 
+The original prototype that I demonstrated included only a less sophisticated grouped line chart, and several of my experimentations with various network visualizations. The most important feedback I received was confirmation that an inclusion of standard error in my aggregations was necessary. Additionally, it was great to talk through different ways of visualizing the "flow" piece of the equation. The idea for the Sankey diagram did not come up during the review, but our conversation got my gears spinning and encouraged me to keep thinking outside of the box. I received a few suggestions for a complicated modification of an adjacency matrix to look at the relationships between subreddits. This idea was very interesting, but too complex overall with too much cognitive overhead for a user to consume it quickly or easily.
 
 ### Challenges ###
 
-My biggest challenges were learning to use several pacakges that were new to me, including `Rcharts` and `d3Sankey`. `d3Sankey`, in particular, assigns its data objects to the same Javascript variables every time a new plot is instantiated. Lacking the time to dig into the code and fix this, I sidestepped the issue by using one of the plots within an `iframe` (although I might still fix the issue and create a pull request for the package). Data quality was also an issue until I resolved it using the `csvkit` suite of command line utilities.
+My biggest challenges were learning to use several pacakges that were new to me, including `Rcharts` and `d3Sankey`. `d3Sankey`, in particular, assigns its data objects to the same Javascript variables every time a new plot is instantiated. Lacking the time to dig into the code and fix this, I sidestepped the issue by using one of the plots within an `iframe` (although I might still fix the issue and create a pull request for the package). Data quality was also an issue until I resolved it using the `csvkit` suite of command line utilities. Lastly, munging network data in general is surprisingly complex and time consuming.
