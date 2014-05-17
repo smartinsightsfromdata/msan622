@@ -43,11 +43,15 @@ Some packages may be necessary to install, act upon corresponding error messages
 
 #### Grouped bar chart ####
 
+![Grouped bar chart](https://github.com/justmytwospence/msan622/blob/master/final-project/bar.png?raw=true)
+
 The first thing that I wanted to look at was the simple number of interactions that submissions get in different subreddits. The three main types of interactions that a submission can get are an upvote, a downvote, and a comment, so I created a barch chart that displays the respective means of all three of these, grouped by subreddit. Each type of interaction gets its own color, and I made sure to make the color for comments substantially different than that of upvotes or downvotes, because is it a different beast entirely. The user can choose to stack the bars or to lay them out side by side. The stacked view is great for getting an overall sense of which subreddits receive the most interactions, while the unstacked view is great for comparing the *ratio* of upvotes and downvotes within a particular subreddit. The tradeoff here is that it is slightly more difficult to compare ratios *between* subreddits than if I were to explicitly map the ratio itself to an aesthetic.
 
 There is a bit of lie factor in this chart, but it is a lie of omission, rather than a distortion. The height of the bars is mapped to an average measure for each type of interaction. These averages are calculated with different (sometimes substantially different) sample sizes. Therefore, not every pair of subreddits is truly comparable. One way to partially account for this would be to include standard error bars. While this was simple to implement in a static `ggplot2` chart, implementing error bars in an interactive chart proved to be much trickier, so they are not included although they would be in my ideal visualization.
 
 #### Grouped line chart ####
+
+![Grouped line chart](https://github.com/justmytwospence/msan622/blob/master/final-project/line.png?raw=true)
 
 Next, I wanted to see if there was any clear trend in how submissions tend to fare based upon their time of submission. To accomplish this, I extracted the hour from each submission's Unix time stamp and, for each subreddit, aggregated all submissions by hour (ie, 24 bins). Note that although submissions originate from a wide range of time zones, using a single time zone (UTC) can be justified by the fact that Reddit is a global phenomenon and submissions therefore have a global audience immediately regardless of the local time when a submission is made.
 
@@ -55,11 +59,15 @@ The lie factor that was an issue with the grouped bar chart is addressed here. B
 
 #### Force layout ####
 
+![Force layout](https://github.com/justmytwospence/msan622/blob/master/final-project/force.png?raw=true)
+
 Now for some network stuff. We can use a physics simulation to see which subreddits tend to cluster together (also known as a force layout). I present the user with four different force layouts, the only difference being the number of cross-posted submissions that two subreddit must share before they become linked by an edge in the simulation. After manually inspecting lots of different force layouts and tweaking this parameter (among others), I settled upon thresholds of 50, 100, and 1000. This visualization technique is actually much more insteresting that I was expecting. Honestly, I thought a hairball was in store, but there is obvious structure in the result. There are two clear groups in the graph: those subreddits that cross-post with the "pics" subreddit, and those that cross-post with the "funny" subreddit. This is what we would expect to see if these two subreddits either reposts from many different *other* subreddits, or alternatively if their submissions are subsequently reposted in many other subreddits. Indeed, we will see shortly in the upcoming Sankey diagram that the latter is the case. I find it very interesting to browse which subreddits are linked to "funny," which are linked to "pics," and which are linked to *both*.
 
 Obviously I could have chosen to weight the width of the edges according to the number of cross-posted submissions between two nodes, but this needlessly complicated the network, and I rather prefer the simple message outlined above.
 
 #### Sankey diagram ####
+
+![Sankey diagram](https://github.com/justmytwospence/msan622/blob/master/final-project/sankey.png?raw=true)
 
 This is my favorite visualization, and gets at what I cared about most in the first place: how do image submissions *"flow"* through different subreddits? Which subreddits usually the first to have original content? Which other subreddits does a particular subreddit get its content from? For the sake of visualization, I make the rather large but not entirely unreasonable assumption that if a submission appears in one subreddit *after* it already appeared in a previous subreddit, the second subreddit "received" that content from the original subreddit. The munging necessary to convert the tabular, time-stamped data into a directed graph was an interesting task; this code can be found in the ipython notebook `graph.json`, suffice to say it involved Pandas, itertools, and NetworkX.
 
