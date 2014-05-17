@@ -52,21 +52,22 @@ shinyServer(function(input, output) {
     plotVotes(dat)
   })
 
-  #   output$sankeyPlot <- renderPrint({
+  # Generates the sankey.html iframe
   #     d3Sankey(Nodes = nodes, Links = links, Source = 'source',
   #              Target = 'target', Value = 'weight', NodeID = 'id',
   #              width = 800, height = 600, standAlone = TRUE,
   #              fontsize = 12, parentElement = "#sankeyPlot",
   #              iframe = TRUE, file = 'sankey.html')
-  #   })
 
   output$networkPlot <- renderPrint({
-    links2sub <- subset(links2, weight > 800)
-    nodes2$id[ ! nodes2$id %in% c(links2sub$source, links2sub$target)] <- NA
-    d3ForceNetwork(Nodes = nodes2, Links = links2sub, Source = "source",
+    links2 <- JSONtoDF(file = paste0(as.character(input$threshold), 'graph.json'), array = "links")
+    nodes2 <- JSONtoDF(file = paste0(as.character(input$threshold), 'graph.json'), array = "nodes")
+    links2$weight <- rescale(links2$weight, to = c(1,100))
+    d3ForceNetwork(Nodes = nodes2, Links = links2, Source = "source",
                    Target = "target", Value = "weight", NodeID = "id",
-                   width = 800, height = 600, standAlone = FALSE, 
-                   parentElement = "#networkPlot")
+                   width = 800, height = 700, standAlone = FALSE, 
+                   parentElement = "#networkPlot", charge = -100, opacity = .8,
+                   linkDistance = 200)
   })
 
 })

@@ -18,15 +18,6 @@ popular <- by(d, d$Subreddit, nrow)
 popular <- names(popular)[popular > 100]
 popular <- subset(d, Subreddit %in% popular)
 popular$Subreddit <- droplevels(popular$Subreddit)
-#save(d, file = 'data.Rdata')
-#d <- load('data.Rdata')
-
-# nodes <- JSONtoDF(file = 'sankey.json', array = 'nodes')
-# links <- JSONtoDF(file = 'sankey.json', array = 'links')
-# nodes$id <- substring(nodes$id, 2)
-
-links2 <- JSONtoDF(file = 'graph.json', array = "links")
-nodes2 <- JSONtoDF(file = 'graph.json', array = "nodes")
 
 custom <- theme(text = element_text(size = 16, colour = "#ece9d7"), 
                 axis.text.x = element_text(colour = "#ece9d7"), 

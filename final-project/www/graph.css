@@ -1,0 +1,8 @@
+.link {
+  stroke: #fff !important;
+  opacity: .2 !important;
+}
+
+.nodetext {
+  opacity: 1 !important;
+}

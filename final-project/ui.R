@@ -47,14 +47,27 @@ shinyUI(navbarPage(theme = 'superhero.css',
                             ),
 
                    tabPanel('Network graph',
-                            htmlOutput('networkPlot')
+                            includeCSS('www/graph.css'),
+                            fluidRow(
+                              column(width = 10, offset = 1,
+                                     gsub("label class=\"radio\"", "label class=\"radio inline\"",radioButtons('threshold',
+                                                 'How many cross-posts necessary to link two subreddit nodes?',
+                                                 choices = c('50', '100', '1000'))))),
+                            fluidRow(
+                              column(width = 10, offset = 1,
+                                     htmlOutput('networkPlot')))
                             ),
 
                    tabPanel('Flow', height=1000,
                             fluidRow(column(width = 8, offset = 2,
-                                            p('Where do images first appear, and then where do they end up?'))),
+                                            p('Images are originally submitted to the subreddits on the left. With each subsequent submission, the "flow" to the right.'))),
                             fluidRow(column(width = 8, offset = 2,
-                                            HTML('<iframe src="sankey.html" height=642 width=824 frameBorder="0"></iframe>')))
+                                            HTML('<iframe src="sankey.html" height=642 width=824 frameBorder="0"></iframe>'),
+                                            tags$iframe(src = 'sankey.html',
+                                                        scrolling = 'no',
+                                                        seamless = NA,
+                                                        height=642,
+                                                        width=824)))
                             ),
 
                    tabPanel('Raw data',
