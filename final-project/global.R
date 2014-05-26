@@ -7,12 +7,14 @@ library(rCharts)
 library(RCurl)
 library(d3Network)
 
-d <- read.csv('redditSubmissions_out.csv')
-d$unixtime <- as.POSIXlt(d$unixtime,
-                         origin = "1970-01-01",
-                         tz = "GMT")
-d$hour <- d$unixtime$hour
-names(d) <- c('Image_ID', 'Time', 'Rawtime', 'Title', 'Total_votes', 'Reddit_ID', 'Upvotes', 'Subreddit', 'Downvotes', 'Local_time', 'Score', 'Comments', 'Username', 'Hour')
+# d <- read.csv('redditSubmissions_out.csv')
+# d$unixtime <- as.POSIXlt(d$unixtime,
+#                          origin = "1970-01-01",
+#                          tz = "GMT")
+# d$hour <- d$unixtime$hour
+# names(d) <- c('Image_ID', 'Time', 'Rawtime', 'Title', 'Total_votes', 'Reddit_ID', 'Upvotes', 'Subreddit', 'Downvotes', 'Local_time', 'Score', 'Comments', 'Username', 'Hour')
+
+load('data.Rdata')
 
 popular <- by(d, d$Subreddit, nrow)
 popular <- names(popular)[popular > 100]
