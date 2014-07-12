@@ -1,4 +1,4 @@
-library(reshape)
+library(reshape2)
 library(ggplot2)
 library(scales)
 library(shiny)

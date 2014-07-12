@@ -1,39 +1,25 @@
-require(rMaps)
+# require(rMaps)
 require(rCharts)
+#
+
 
 shinyServer(function(input, output, session) {
   
-  states <- state.x77
-  states_df <- data.frame(state.x77,
-                          Abbrev = state.abb,
-                          Region = state.region,
-                          Division = state.division)
-  states_df$State <- unique(violent_crime$State)
-  states <- cbind(states,
-                  'State' = rownames(states),
-                  'Region' = state.region)
+
+  # output$parallel <- reactive(function() {    
+  #   states[,1:6]
+  # })
   
-  output$checkboxes <- renderUI({
-    radioButtons('variable',  
-                 'Measure of interest',
-                 choices = names(states_df)[-7:-12],
-                 selected = 'Population')
-  })
-  
-  output$parallel <- reactive(function() {    
-    states[,1:6]
-  })
-  
-  output$scatter <- reactive(function() {
-    states[,c(2:6,10)]
-  })
+  # output$scatter <- reactive(function() {
+  #   states[,c(2:6,10)]
+  # })
   
   output$choropleth <- rCharts::renderChart2({
     if (is.null(input$variable)) {
       return()
     }
     
-    ichoropleth(
+    rMaps::ichoropleth(
       as.formula(paste(input$variable, ' ~ State')), 
       data = states_df[,-7:-11],
       geographyConfig = list(

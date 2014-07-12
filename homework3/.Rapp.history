@@ -1,0 +1,947 @@
+ggplot(data,aes(x=Category, y=Series.2, fill="dark green")) +geom_bar(position=Series.2)
+ggplot(data,aes(x=Category, y=Series.2, fill="dark green")) +geom_bar(position=Series.1)
+ggplot(data,aes(x=Category,  fill="dark green")) +geom_bar()
+ggplot(data,aes(x=Category, y=Series.2, fill="dark green")) +geom_bar(stat="bin")
+ggplot(data,aes(x=Category, y=Series.2, fill="dark green")) +geom_bar(stat="identity")
+p <- ggplot(aes(x=Category, y=Series.2, fill="dark green"), witdh=1, data=data)
+p <- ggplot(data,aes(x=Category, y=Series.2, fill="dark green")) +
+geom_bar(stat="identity") +
+geom_bar(aes(x=Category, y=Series.1, fill="light green"),
+width=.4, data=data) +
+scale_fill_identity() +
+coord_flip() +
+labs(x="X Label", y="Y Label", title="An Example Bullet Chart")
+p
+p <- ggplot(data,aes(x=Category, y=Series.2, fill="dark green")) +
+geom_bar(stat="identity") +
+#		  geom_bar(aes(x=Category, y=Series.1, fill="light green"),
+#		  	width=.4, data=data) +
+scale_fill_identity() +
+coord_flip() +
+labs(x="X Label", y="Y Label", title="An Example Bullet Chart")
+# full output: http://www.yaksis.com/static/img/03/large/BulletBarChart.png
+p
+p <- ggplot(data,aes(x=Category, y=Series.2, fill="dark green"), witdh=1) +
+#		geom_bar(stat="identity") +
+geom_histogram(alpha=0.5, aes(y=Series.1, fill="light green"),
+width=.4, data=data) +
+scale_fill_identity() +
+coord_flip() +
+labs(x="X Label", y="Y Label", title="An Example Bullet Chart")
+p
+p <- ggplot(vegLengths, aes(length, fill = veg)) +
+geom_histogram(alpha = 0.5,  position = 'identity')
+p
+p <- ggplot(data,aes(x=Category, y=Series.2, fill="dark green"), witdh=1) +
+#		geom_bar(stat="identity") +
+geom_histogram(alpha=0.5, aes(Series.1, fill="light green"), position="identity"
+width=.4)
+p
+p <- ggplot(data,aes(x=Category, y=Series.2, fill="dark green"), witdh=1) +#
+#		geom_bar(stat="identity") +#
+		  geom_histogram(alpha=0.5, aes(x= Series.1, fill="light green"), position="identity"#
+		  	width=.4)
+p
+p <- ggplot(data,aes(x=Category, y=Series.2, fill="dark green"), witdh=1) +#
+ geom_histogram(alpha=0.5, aes(x= Series.1, fill="light green"), #
+ 	position="identity",width=.4)#
+ p
+carrots$veg <- 'carrot'#
+cukes$veg <- 'cuke'#
+#
+#and combine into your new data frame vegLengths#
+vegLengths <- rbind(carrots, cukes)#
+#
+#now make your lovely plot#
+ggplot(vegLengths, aes(length, fill = veg)) + geom_density(alpha = 0.2)
+carrots <- data.frame(length = rnorm(100000, 6, 2))#
+cukes <- data.frame(length = rnorm(50000, 7, 2.5))#
+#
+#Now, combine your two dataframes into one.  First make a new column in each.#
+carrots$veg <- 'carrot'#
+cukes$veg <- 'cuke'#
+#
+#and combine into your new data frame vegLengths#
+vegLengths <- rbind(carrots, cukes)#
+#
+#now make your lovely plot#
+ggplot(vegLengths, aes(length, fill = veg)) + geom_density(alpha = 0.2)
+ggplot(vegLengths, aes(length, fill = veg)) + geom_histogram(alpha = 0.5,#
+ aes(y = ..density..), position = 'identity')
+ggplot(vegLengths, aes(length, fill = veg)) + geom_histogram(alpha = 0.5,#
+	position = 'identity')
+vegLengths
+ggplot(vegLengths, aes(length, fill = veg),with=1) + geom_histogram(alpha = 0.5,#
+	position = 'identity', width=.4)
+ggplot(vegLengths, aes(length, fill = veg),with=1) + geom_histogram(alpha = 0.5,#
+	position = 'identity', width=.4)+#
+  coord_flip()
+library(ggplot2)
+library(gcookbook) # For the data set
+cabbage_exp
+library(ggplot2)
+library(gcookbook) # For the data set
+cabbage_exp
+ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
+geom_bar(position="dodge")
+rattle()
+df <- data.frame(x=c(1,2,3), y1=c(1,2,3), y2=c(3,4,5))#
+        hPlot(y="y1", x="x", data=df)
+library(rCharts)
+df <- data.frame(x=c(1,2,3), y1=c(1,2,3), y2=c(3,4,5))
+hPlot(y="y1", x="x", data=df)
+hPlot(x = "x", y = "value", group = "variable", data = reshape2::melt(df, id.vars = "x"))
+library(ggplot2)
+filepath<-"http://bit.ly/wBBTQO"
+#read in the tab delimited text file using the url() function
+myData<-read.table(file=url(filepath),header=T,sep="\t")
+library(ggplot2)
+filepath<-"http://bit.ly/wBBTQO"
+#read in the tab delimited text file using the url() function
+myData<-read.table(file=url(filepath),header=T,sep="\t")
+qplot(data=myData,x=BM,main="Histogram of BodyMass")
+qplot(data=myData,x=BM,y=var1,log="xy",color=Tribe)
+qplot(data=myData,x=log(BM),y=log(var1),color=Tribe)
+qplot(data=myData,x=Hab,y=var1,geom="boxplot")
+qplot(data=myData,x=BM,y=var1,log="xy",color=Tribe,facets = Hab~Tribe)
+qplot(data=myData,x=BM,y=var1,log="xy",color=Tribe,facets = ~Tribe)
+myGG<-qplot(data=myData,x=BM,y=var1,color=Tribe,facets=~Tribe)
+myGG<- myGG + stat_smooth(method="lm")
+myGG
+library(gcookbook) # For the data set
+cabbage_exp
+ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
+geom_bar(position="dodge")
+ggplot(cabbage_exp, aes(x=Date, fill=Cultivar)) +
+geom_bar(position="dodge")
+ggplot(cabbage_exp, aes(x=Date, fill=Cultivar)) +
+geom_bar()
+carrots <- data.frame(length = rnorm(100000, 6, 2))
+cukes <- data.frame(length = rnorm(50000, 7, 2.5))
+carrots$veg <- 'carrot'
+cukes$veg <- 'cuke'
+vegLengths <- rbind(carrots, cukes)
+vegLengths
+head(vegLengths)
+ggplot(vegLengths, aes(length, fill = veg)) + geom_histogram(alpha = 0.5,
+position = 'identity')
+ggplot(vegLengths, aes(length, fill = veg)) + geom_histogram(alpha = 0.5,
+position = 'dodge')
+ggplot(vegLengths, aes(length, fill = veg)) + geom_bar(alpha = 0.5,
+position = 'identity')
+ggplot(vegLengths, aes(length, fill = veg), width=1) + geom_bar(alpha = 0.5,
+position = 'identity', width=0.4)
+ggplot(vegLengths, aes(length, fill = veg), width=2) + geom_bar(alpha = 0.5,
+position = 'identity', width=0.4)
+ggplot(vegLengths, aes(length, fill = veg), width=2) + geom_bar(alpha = 0.5,
+position = 'identity', width=0.4)
+ggplot(vegLengths, aes(length, fill = veg), width=20) + geom_bar(alpha = 0.5,
+position = 'identity', width=0.4)
+library(ggplot2)
+ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
+df <- read.csv(textConnection("
++ Segment,Alpha,Beta,Gamma,Delta
++ A,1416649,590270,236108,118054
++ B,708325,531243,354162,177081
++ C,354162,354162,236108,236108
++ D,147568,147568,147568,147568"))
+closeAllConnections()
+library(reshape2)
+dfa <- melt(df, id = c("Segment"), variable_name = "Company")
+ylim <- max(cast(dfa, Company ~ ., sum)[, 2],
++     cast(dfa, Segment ~ ., sum)[, 2])
+dfa <- melt(df, id = c("Segment"), variable_name = "Company")
+ylim <- max(dcast(dfa, Company ~ ., sum)[, 2],
++     cast(dfa, Segment ~ ., sum)[, 2])
+dfa <- melt(df, id.vars = c("Segment"), variable = "Company")
+df
+df <- read.csv(textConnection("#
+Segment,Alpha,Beta,Gamma,Delta#
+A,1416649,590270,236108,118054#
+B,708325,531243,354162,177081#
+C,354162,354162,236108,236108#
+D,147568,147568,147568,147568"), h=T)
+df
+closeAllConnections()
+dfa <- melt(df, id.vars = c("Segment"), variable = "Company")
+dfa
+ylim <- max(dcast(dfa, Company ~ ., sum)[, 2],
++     cast(dfa, Segment ~ ., sum)[, 2])
+ylim <- max(dcast(dfa, Company ~ ., sum)[, 2],
++     dcast(dfa, Segment ~ ., sum)[, 2])
+dcast(dfa, Segment ~ ., sum)[, 2]
+dcast(dfa, Company ~ ., sum)[, 2]
+p <- ggplot(dfa) + scale_y_continuous(limits = c(0,
+ylim), breaks = NA)
+p
+ggplot(cabbage_exp, aes(x=Date, fill=Cultivar)) +
+geom_bar()
+ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
+p
+p1 <- p + geom_bar(aes(Company, value), stat = "identity")
+p1
+p <- ggplot(dfa) + scale_y_continuous(limits = c(0,
+ylim), breaks = NULL)
+p1 <- p + geom_bar(aes(Company, value), stat = "identity")
+p1
+p2 <- p1 + geom_bar(aes(Company, value, fill = Segment),
+stat = "identity", position = "dodge")
+p2
+bullet.graph <- function(bg.data){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bg.data$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bg.data) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="goldenrod2", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="goldenrod3", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="goldenrod4", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="black",  stat="identity", width=0.2) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.45) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+#
+  return(gg)#
+#
+}
+incidents <- data.frame(#
+  measure=c("Total Events (K)", "Security Events (K)"),#
+  high=c(3200,2000),#
+  mean=c(2170,1500),#
+  low=c(1500,500), #
+  target=c(2500,1750),#
+  value=c(2726,1600)#
+)
+incidents.bg <- bullet.graph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="deepskyblue2", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="deepskyblue3", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="deepskyblue4", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="black",  stat="identity", width=0.2) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.45) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents <- data.frame(#
+  measure=c("Total Events (K)", "Security Events (K)"),#
+  high=c(3200,2000),#
+  mean=c(2170,1500),#
+  low=c(1500,500), #
+  target=c(2500,1750),#
+  value=c(2726,1600)#
+)#
+#
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="dodgerblue2", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="dodgerblue3", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="dodgerblue4", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="black",  stat="identity", width=0.2) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.45) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="dodgerblue2", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="dodgerblue3", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="dodgerblue4", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="black",  stat="identity", width=0.2) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.45) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="blue2", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="blue3", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="blue4", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="black",  stat="identity", width=0.2) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.45) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.2) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.45) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.5, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.2) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.45) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=3),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.3, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.3, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.3, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.2) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.45) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.2, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.2, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.2, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  max.bg <- max(bgData$high)#
+  mid.bg <- max.bg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,max.bg,mid.bg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   # panel.background=element_blank(), #
+                   # panel.border=element_blank(),#
+                   # panel.grid.major=element_blank(),#
+                   # panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  # gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=0, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=0, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+incidents.bg <- bulletGraph(incidents$'Total Events (K)')
+incidents.bg
+incidents$'Total Events (K)'
+incidents.bg <- bulletGraph(incidents[,1])
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=1),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=0, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=0, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents[,1])
+incidents.bg
+incidents[,1]
+incidents.bg <- bulletGraph(incidents[,2])
+incidents.bg
+incidents[,2]
+require(lattice)
+require(latticeExtra)
+require(reshape2)
+require(quantmod)
+tckrs <- c("^W0DOW","^GSPC","^RUT","^E1DOW","^P1DOW","^DJUBS")
+getSymbols(tckrs,from="2011-12-31")
+getSymbols('F')
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  # gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  # gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.15) #
+  # gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  # gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red", width=0.25) #
+  # gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  # gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+bulletGraph <- function(bgData){#
+  require(ggplot2)#
+  # compute max and half for the ticks and labels#
+  maxbg <- max(bgData$high)#
+  midbg <- maxbg / 2#
+#
+  gg <- ggplot(bgData) #
+  gg <- gg + geom_bar(aes(measure, high),  fill="royalblue2", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, mean),  fill="royalblue3", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, low),   fill="royalblue4", stat="identity", width=0.18, alpha=0.2) #
+  gg <- gg + geom_bar(aes(measure, value), fill="navy",  stat="identity", width=0.1) #
+  gg <- gg + geom_errorbar(aes(y=target, x=measure, ymin=target, ymax=target), color="red",#
+  position=position_dodge(.9), width=0.15) #
+  # gg <- gg + geom_point(aes(measure, target), colour="red", size=2.5) #
+  # gg <- gg + scale_y_continuous(breaks=seq(0,maxbg,midbg))#
+  gg <- gg + coord_flip()#
+  gg <- gg + theme(axis.text.x=element_text(size=5),#
+                   axis.title.x=element_blank(),#
+                   axis.line.y=element_blank(), #
+                   axis.text.y=element_text(hjust=1, color="black"), #
+                   axis.ticks.y=element_blank(),#
+                   axis.title.y=element_blank(),#
+                   legend.position="none",#
+                   panel.background=element_blank(), #
+                   panel.border=element_blank(),#
+                   panel.grid.major=element_blank(),#
+                   panel.grid.minor=element_blank(),#
+                   plot.background=element_blank())#
+  return(gg)#
+}
+incidents.bg <- bulletGraph(incidents)
+incidents.bg
+devtools::install_github('leaflet-shiny', 'jcheng5')
+devtools::install_github("devtools")
+setwd("/Users/e/Google Drive/GitLib/msan622/homework3/")
+shiny::runApp()
+states <- state.x77
+states_df <- data.frame(state.x77,
+Abbrev = state.abb,
+Region = state.region,
+Division = state.division)
+str(states_df)
